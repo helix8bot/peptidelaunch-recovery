@@ -105,7 +105,7 @@ const faqs = [
   {
     question: "How is this different from other peptide guides?",
     answer:
-      "Most guides are generic. This funnel is built around a personalized protocol framework, tracking logic, recovery milestones, and research citations instead of loose forum summaries.",
+      "Most guides are generic. This funnel moves from a free research overview to a 10-day quick start and then a 30/60/90-day protocol with dosing, timing, calendar guidance, and research citations.",
   },
   {
     question: "Who is PeptideLaunch?",
@@ -144,11 +144,11 @@ const painPoints = [
 
 const modules = [
   "Understanding peptides and the recovery landscape",
-  "Your personalized protocol framework",
+  "Protocol guide built around common pain-recovery use cases",
   "30 / 60 / 90 day implementation calendar",
   "Stacking guide for multi-pathway support",
-  "Administration and route overview",
-  "Progress tracking and milestone scorecards",
+  "Dosing, timing, and administration overview",
+  "Guarantee, FAQ, and research appendix",
   "Research appendix with primary citations",
 ];
 
@@ -160,10 +160,10 @@ const stats = [
 ];
 
 const tripwireBullets = [
-  "30+ page enhanced quick start guide",
-  "Done-for-you daily action templates",
-  "Pain tracking worksheets and progress tools",
-  "Quick-reference cards for BPC-157, TB-500, and KLOW",
+  "10-day quick-start guide",
+  "Simple daily action plan for Days 1-10",
+  "BPC-157, TB-500, and KLOW quick-reference pages",
+  "What to watch for before moving into the full protocol",
   "30-day money-back guarantee",
 ];
 
@@ -228,6 +228,11 @@ export default function Home() {
   }
 
   function skipTripwire() {
+    window.localStorage.setItem("recoveryFunnelStage", "core");
+    setStage("core");
+  }
+
+  function advanceFromTripwire() {
     window.localStorage.setItem("recoveryFunnelStage", "core");
     setStage("core");
   }
@@ -367,7 +372,7 @@ export default function Home() {
                     Together, they form the educational backbone of the Pain Recovery Protocol. KLOW adds <strong className="text-white">GHK-Cu</strong> and <strong className="text-white">KPV</strong> for a broader recovery conversation around remodeling, anti-inflammatory pathways, and convenience.
                   </p>
                   <p>
-                    This offer is positioned as organized research translation: mechanisms, timelines, citation summaries, tracking, and protocol logic for people who want something more rigorous than random forum posts.
+                    This offer is positioned as organized research translation: mechanisms, timelines, citation summaries, and protocol logic for people who want something more rigorous than random forum posts.
                   </p>
                 </div>
                 <div className="mt-8">
@@ -392,7 +397,7 @@ export default function Home() {
                 <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[var(--teal-light)]">Section 4 · What&apos;s inside</p>
                 <h2 className="mt-4 text-3xl font-semibold sm:text-4xl">Everything you need to build a research-informed recovery protocol.</h2>
                 <p className="mt-4 max-w-2xl text-lg leading-8 text-slate-300">
-                  The core offer turns scattered research into a clean buyer journey: education, personalization, implementation cadence, tracking, and citations.
+                  The core offer turns scattered research into a clean buyer journey: education, implementation cadence, dosing and timing guidance, and citations.
                 </p>
                 <div className="mt-8 grid gap-4 sm:grid-cols-2">
                   {modules.map((module, index) => (
@@ -407,10 +412,10 @@ export default function Home() {
                 <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[var(--teal-light)]">Included in the $67 protocol</p>
                 <ul className="mt-6 space-y-4 text-sm leading-7 text-slate-200">
                   <li>• 40-page core protocol positioning for this launch page</li>
-                  <li>• Personalized protocol logic and recovery decision framework</li>
+                  <li>• Protocol guide and recovery decision framework</li>
                   <li>• 30 / 60 / 90 day implementation calendar</li>
                   <li>• Stacking, timing, and route comparison guidance</li>
-                  <li>• Progress tracker, milestone checklist, and research appendix</li>
+                  <li>• Research appendix, citation library, and FAQ guidance</li>
                   <li>• 60-Day Research Guarantee and instant digital access</li>
                 </ul>
                 <div className="mt-8 rounded-[1.5rem] border border-[var(--teal)]/20 bg-[var(--teal)]/10 p-5 text-sm leading-7 text-slate-200">
@@ -494,12 +499,12 @@ export default function Home() {
                 <div className="rounded-[2rem] border border-[var(--teal)]/30 bg-[var(--teal)]/10 p-8">
                   <div className="text-sm font-semibold uppercase tracking-[0.2em] text-[var(--teal-light)]">Tripwire</div>
                   <h3 className="mt-3 text-2xl font-semibold">$17 · 10-Day Pain Relief Quick Start</h3>
-                  <p className="mt-3 text-sm leading-7 text-slate-200">A low-friction implementation toolkit with templates, worksheets, daily actions, and quick-reference cards.</p>
+                  <p className="mt-3 text-sm leading-7 text-slate-200">A low-friction quick-start guide with a 10-day action plan, simple implementation guidance, and quick-reference pages.</p>
                 </div>
                 <div className="rounded-[2rem] border border-white/10 bg-white p-8 text-slate-900">
                   <div className="text-sm font-semibold uppercase tracking-[0.2em] text-[var(--teal)]">Core offer</div>
                   <h3 className="mt-3 text-2xl font-semibold text-[var(--navy-dark)]">$67 · Peptide Pain Recovery Protocol</h3>
-                  <p className="mt-3 text-sm leading-7 text-slate-600">Total value: $397 — Your price: $67. Includes the core protocol, tracking structure, citations, and guarantee.</p>
+                  <p className="mt-3 text-sm leading-7 text-slate-600">Total value: $397 — Your price: $67. Includes the protocol guide, dosing and timing guidance, 30/60/90 calendar, citations, and guarantee.</p>
                   <div className="mt-6 rounded-2xl bg-slate-100 p-4 text-sm font-medium text-slate-700">60-Day Research Guarantee</div>
                 </div>
               </div>
@@ -561,7 +566,7 @@ export default function Home() {
                   <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[var(--teal-light)]">One-time tripwire</p>
                   <h2 className="mt-4 text-3xl font-semibold sm:text-4xl">Wait — start your recovery today for just $17.</h2>
                   <p className="mt-4 text-lg leading-8 text-slate-200">
-                    Upgrade to the 10-Day Pain Relief Quick Start and get the implementation tools missing from the free guide: templates, worksheets, quick-reference cards, and faster execution.
+                    Upgrade to the 10-Day Pain Relief Quick Start and get a simple 10-day action plan, quick-reference pages, and a cleaner bridge into the full Peptide Pain Recovery Protocol.
                   </p>
                   <ul className="mt-8 space-y-3 text-sm leading-7 text-slate-200">
                     {tripwireBullets.map((bullet) => (
@@ -572,6 +577,9 @@ export default function Home() {
                     <a href="https://checkout.example.com/pain-recovery-quick-start" className="rounded-full bg-white px-6 py-4 text-center text-base font-semibold text-[var(--navy-dark)] transition hover:bg-slate-100">
                       Yes — give me the $17 Quick Start
                     </a>
+                    <button onClick={advanceFromTripwire} className="rounded-full border border-white/15 px-6 py-4 text-base font-semibold text-white transition hover:bg-white/5">
+                      I bought it — show me the $67 protocol
+                    </button>
                     <button onClick={skipTripwire} className="rounded-full border border-white/15 px-6 py-4 text-base font-semibold text-white transition hover:bg-white/5">
                       No thanks, show me the $67 protocol
                     </button>
@@ -581,9 +589,9 @@ export default function Home() {
                   <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[var(--cyan)]">Why this converts</p>
                   <div className="mt-5 space-y-4 text-sm leading-7 text-slate-300">
                     <p>Free guide = concepts.</p>
-                    <p>$17 quick start = implementation tools.</p>
+                    <p>$17 quick start = simple Day 1-10 action plan.</p>
                     <p>$67 protocol = full 30/60/90 day system.</p>
-                    <p>This step follows the exact paid-creators style bridge: fast win first, deeper commitment second.</p>
+                    <p>This bridge keeps the funnel focused on one fast win and one final core offer.</p>
                   </div>
                 </aside>
               </section>
@@ -595,7 +603,7 @@ export default function Home() {
                   <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[var(--teal-light)]">Core offer pitch</p>
                   <h2 className="mt-4 text-3xl font-semibold sm:text-4xl">Ready for the full recovery system?</h2>
                   <p className="mt-4 text-lg leading-8 text-slate-200">
-                    The Peptide Pain Recovery Protocol organizes the entire framework into one clean digital product: mechanism education, personalized protocol logic, tracking, timelines, and citations.
+                    The Peptide Pain Recovery Protocol organizes the entire framework into one clean digital product: mechanism education, dosing and timing guidance, 30/60/90 day planning, and citations.
                   </p>
                   <div className="mt-8 grid gap-4 sm:grid-cols-2">
                     <div className="rounded-[1.5rem] border border-white/10 bg-white/5 p-5">
@@ -606,7 +614,7 @@ export default function Home() {
                     <div className="rounded-[1.5rem] border border-white/10 bg-white/5 p-5">
                       <div className="text-sm font-semibold uppercase tracking-[0.2em] text-[var(--cyan)]">Value stack</div>
                       <div className="mt-2 text-2xl font-semibold">$397 total value</div>
-                      <p className="mt-2 text-sm leading-7 text-slate-300">Includes protocol, tracking, citations, and guarantee.</p>
+                      <p className="mt-2 text-sm leading-7 text-slate-300">Includes protocol guide, dosing and timing guidance, 30/60/90 calendar, citations, and guarantee.</p>
                     </div>
                   </div>
                   <div className="mt-8 flex flex-col gap-4 sm:flex-row">
@@ -621,10 +629,9 @@ export default function Home() {
                 <aside className="rounded-[2rem] border border-white/10 bg-white p-8 text-slate-900">
                   <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[var(--teal)]">Included</p>
                   <ul className="mt-5 space-y-3 text-sm leading-7 text-slate-700">
-                    <li>• Personalized protocol framework</li>
+                    <li>• Protocol guide with research-backed framework</li>
                     <li>• 30 / 60 / 90 day calendar</li>
-                    <li>• Stacking and administration guide</li>
-                    <li>• Progress tracking system</li>
+                    <li>• Dosing, timing, and administration guidance</li>
                     <li>• Research appendix and citations</li>
                     <li>• 60-Day Research Guarantee</li>
                   </ul>
