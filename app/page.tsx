@@ -167,11 +167,33 @@ const tripwireBullets = [
   "30-day money-back guarantee",
 ];
 
+const photos = {
+  hero: "https://images.unsplash.com/photo-1626440861759-b3d7e45ee88e?w=1200&q=80",
+  pain: "https://images.unsplash.com/photo-1562771379-eafdca7a02f8?w=800&q=80",
+  solution: "https://images.unsplash.com/photo-1542359649-31e03cd4d909?w=800&q=80",
+  inside: "https://images.unsplash.com/photo-1707944746058-4da338d0f827?w=800&q=80",
+  klow: "https://images.unsplash.com/photo-1554245120-94a6fc6feb96?w=800&q=80",
+  research: "https://images.unsplash.com/photo-1614308459036-779d0dfe51ff?w=800&q=80",
+  pricing: "https://images.unsplash.com/photo-1459231978203-b7d0c47a2cb7?w=1200&q=80",
+  faq: "https://images.unsplash.com/photo-1463693396721-8ca0cfa2b3b5?w=1200&q=80",
+  finalCta: "https://images.unsplash.com/photo-1526772662000-3f88f10405ff?w=1200&q=80",
+  tripwire: "https://images.unsplash.com/photo-1626440861747-a723ff8f3fb1?w=800&q=80",
+  core: "https://images.unsplash.com/photo-1630057105795-d858189bee44?w=800&q=80",
+};
+
 function Disclaimer() {
   return (
     <p className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-slate-300">
       Educational use only. Research suggests these compounds may support recovery-related pathways, but evidence quality varies and much of the literature is preclinical. Consult a qualified healthcare provider before beginning any protocol. These statements have not been evaluated by the FDA.
     </p>
+  );
+}
+
+function PhotoCard({ src, alt, className = "", eager = false }: { src: string; alt: string; className?: string; eager?: boolean }) {
+  return (
+    <div className={`overflow-hidden rounded-[2rem] border border-white/10 bg-white/5 shadow-[0_24px_60px_rgba(15,23,42,0.18)] ${className}`}>
+      <img src={src} alt={alt} loading={eager ? "eager" : "lazy"} className="h-full w-full object-cover" />
+    </div>
   );
 }
 
@@ -238,10 +260,10 @@ export default function Home() {
   }
 
   return (
-    <div className="bg-[var(--navy-dark)] text-white">
+    <div className="bg-[#0B1426] text-white">
       <header className="sticky top-0 z-50 border-b border-white/10 bg-[rgba(11,20,38,0.82)] backdrop-blur-xl">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
-          <a href="#top" className="text-lg font-semibold tracking-[0.2em] text-white uppercase">
+          <a href="#top" className="text-lg font-semibold uppercase tracking-[0.2em] text-white">
             PeptideLaunch
           </a>
           <nav className="hidden items-center gap-6 text-sm text-slate-300 md:flex">
@@ -250,10 +272,7 @@ export default function Home() {
             <a href="#pricing">Pricing</a>
             <a href="#faq">FAQ</a>
           </nav>
-          <a
-            href={stage === "landing" ? "#optin" : "#pricing"}
-            className="rounded-full bg-[var(--teal)] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[var(--teal-light)]"
-          >
+          <a href={stage === "landing" ? "#optin" : "#pricing"} className="rounded-full bg-[#0D9488] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#14B8A6]">
             {ctaLabel}
           </a>
         </div>
@@ -261,26 +280,29 @@ export default function Home() {
 
       {stage === "landing" && (
         <main id="top">
-          <section className="relative overflow-hidden border-b border-white/10 bg-[radial-gradient(circle_at_top_right,_rgba(34,211,238,0.18),_transparent_30%),linear-gradient(180deg,#0B1426_0%,#0F1B2D_100%)]">
-            <div className="mx-auto grid max-w-7xl gap-12 px-4 py-16 sm:px-6 lg:grid-cols-[1.15fr_0.85fr] lg:px-8 lg:py-24">
+          <section className="relative isolate overflow-hidden border-b border-white/10">
+            <img src={photos.hero} alt="Athlete stretching during active recovery session" className="absolute inset-0 h-full w-full object-cover" />
+            <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(11,20,38,0.92)_0%,rgba(11,20,38,0.72)_45%,rgba(11,20,38,0.52)_100%)]" />
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(13,148,136,0.35),transparent_35%)]" />
+            <div className="relative mx-auto grid max-w-7xl gap-12 px-4 py-16 sm:px-6 lg:grid-cols-[1.15fr_0.85fr] lg:px-8 lg:py-24">
               <div className="space-y-8">
-                <div className="inline-flex rounded-full border border-[var(--teal)]/30 bg-[var(--teal)]/10 px-4 py-2 text-sm text-[var(--teal-light)]">
+                <div className="inline-flex rounded-full border border-[#0D9488]/40 bg-[#0D9488]/15 px-4 py-2 text-sm text-[#99F6E4]">
                   Research-backed education for chronic pain, joint pain, and injury recovery
                 </div>
                 <div className="space-y-5">
                   <h1 className="max-w-4xl text-4xl font-semibold leading-tight sm:text-5xl lg:text-6xl">
                     The Research-Backed Peptide Protocol for Pain Recovery That&apos;s Changing Everything
                   </h1>
-                  <p className="max-w-2xl text-lg leading-8 text-slate-300 sm:text-xl">
+                  <p className="max-w-2xl text-lg leading-8 text-slate-200 sm:text-xl">
                     For people exhausted by chronic pain, nagging joint issues, and injuries that never fully resolve, this educational guide explains why research suggests a multi-pathway peptide strategy may be worth understanding before you settle for more symptom management.
                   </p>
                 </div>
 
                 <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
                   {stats.map((stat) => (
-                    <div key={stat.label} className="rounded-3xl border border-white/10 bg-white/5 p-5">
-                      <div className="text-3xl font-semibold text-[var(--cyan)]">{stat.value}</div>
-                      <div className="mt-2 text-sm leading-6 text-slate-300">{stat.label}</div>
+                    <div key={stat.label} className="rounded-3xl border border-white/10 bg-white/10 p-5 backdrop-blur-sm">
+                      <div className="text-3xl font-semibold text-[#67E8F9]">{stat.value}</div>
+                      <div className="mt-2 text-sm leading-6 text-slate-200">{stat.label}</div>
                     </div>
                   ))}
                 </div>
@@ -290,8 +312,8 @@ export default function Home() {
 
               <div id="optin" className="rounded-[2rem] border border-white/10 bg-white p-6 text-slate-900 shadow-[0_30px_80px_rgba(0,0,0,0.35)] sm:p-8">
                 <div className="mb-6">
-                  <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[var(--teal)]">Free guide</p>
-                  <h2 className="mt-3 text-3xl font-semibold text-[var(--navy-dark)]">Get “5 Peptides Proven to Support Recovery”</h2>
+                  <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#0D9488]">Free guide</p>
+                  <h2 className="mt-3 text-3xl font-semibold text-[#1B2A4A]">Get “5 Peptides Proven to Support Recovery”</h2>
                   <p className="mt-3 text-base leading-7 text-slate-600">
                     Enter your name and email for instant access to the free educational quick-start guide, then see the one-time $17 implementation offer.
                   </p>
@@ -304,7 +326,7 @@ export default function Home() {
                       required
                       value={name}
                       onChange={(e) => setName(e.target.value)}
-                      className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-base outline-none transition focus:border-[var(--teal)] focus:ring-4 focus:ring-[var(--teal)]/10"
+                      className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-base outline-none transition focus:border-[#0D9488] focus:ring-4 focus:ring-[#0D9488]/10"
                       placeholder="Perry"
                     />
                   </div>
@@ -315,20 +337,14 @@ export default function Home() {
                       required
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-base outline-none transition focus:border-[var(--teal)] focus:ring-4 focus:ring-[var(--teal)]/10"
+                      className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-base outline-none transition focus:border-[#0D9488] focus:ring-4 focus:ring-[#0D9488]/10"
                       placeholder="you@example.com"
                     />
                   </div>
-                  <button
-                    type="submit"
-                    disabled={loading}
-                    className="w-full rounded-2xl bg-[var(--teal)] px-4 py-4 text-base font-semibold text-white transition hover:bg-[var(--teal-light)] disabled:cursor-not-allowed disabled:opacity-70"
-                  >
+                  <button type="submit" disabled={loading} className="w-full rounded-2xl bg-[#0D9488] px-4 py-4 text-base font-semibold text-white transition hover:bg-[#14B8A6] disabled:cursor-not-allowed disabled:opacity-70">
                     {loading ? "Submitting..." : "Download the Free Guide"}
                   </button>
-                  <p className="text-sm leading-6 text-slate-500">
-                    We&apos;ll also send occasional peptide education and funnel follow-up. Unsubscribe anytime.
-                  </p>
+                  <p className="text-sm leading-6 text-slate-500">We&apos;ll also send occasional peptide education and funnel follow-up. Unsubscribe anytime.</p>
                   {submitted && <p className="text-sm font-medium text-emerald-600">Success — redirecting you to the quick-start offer below.</p>}
                   {error && <p className="text-sm font-medium text-rose-600">{error}</p>}
                 </form>
@@ -336,33 +352,34 @@ export default function Home() {
             </div>
           </section>
 
-          <section className="border-b border-white/10 bg-[var(--navy)] px-4 py-16 sm:px-6 lg:px-8">
-            <div className="mx-auto max-w-7xl">
-              <div className="max-w-3xl">
-                <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[var(--teal-light)]">Section 2 · Pain points</p>
+          <section className="border-b border-white/10 bg-[#1B2A4A] px-4 py-16 sm:px-6 lg:px-8">
+            <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
+              <PhotoCard src={photos.pain} alt="Person holding painful shoulder during training" className="h-[320px] lg:h-[520px]" />
+              <div>
+                <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#99F6E4]">Section 2 · Pain points</p>
                 <h2 className="mt-4 text-3xl font-semibold sm:text-4xl">You&apos;ve been told to just live with the pain.</h2>
                 <p className="mt-4 max-w-2xl text-lg leading-8 text-slate-300">
                   The usual playbook is symptom management, repeat procedures, and expensive guesswork. What if the problem isn&apos;t managing pain — it&apos;s that nobody addressed the root cause?
                 </p>
-              </div>
-              <div className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-5">
-                {painPoints.map((point) => (
-                  <article key={point.title} className="rounded-[1.75rem] border border-white/10 bg-white/5 p-5">
-                    <h3 className="text-lg font-semibold">{point.title}</h3>
-                    <p className="mt-3 text-sm leading-7 text-slate-300">{point.body}</p>
-                  </article>
-                ))}
-              </div>
-              <div className="mt-8">
-                <Disclaimer />
+                <div className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+                  {painPoints.map((point) => (
+                    <article key={point.title} className="rounded-[1.75rem] border border-white/10 bg-white/5 p-5">
+                      <h3 className="text-lg font-semibold">{point.title}</h3>
+                      <p className="mt-3 text-sm leading-7 text-slate-300">{point.body}</p>
+                    </article>
+                  ))}
+                </div>
+                <div className="mt-8">
+                  <Disclaimer />
+                </div>
               </div>
             </div>
           </section>
 
-          <section id="research" className="border-b border-white/10 bg-[linear-gradient(180deg,#0F1B2D_0%,#0B1426_100%)] px-4 py-16 sm:px-6 lg:px-8">
+          <section id="research" className="border-b border-white/10 bg-[linear-gradient(180deg,#10203A_0%,#0B1426_100%)] px-4 py-16 sm:px-6 lg:px-8">
             <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.9fr_1.1fr]">
               <div>
-                <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[var(--teal-light)]">Section 3 · The solution</p>
+                <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#99F6E4]">Section 3 · The solution</p>
                 <h2 className="mt-4 text-3xl font-semibold sm:text-4xl">A science-first recovery framework, not another supplement gimmick.</h2>
                 <div className="mt-6 space-y-5 text-base leading-8 text-slate-300">
                   <p>
@@ -376,13 +393,16 @@ export default function Home() {
                   </p>
                 </div>
                 <div className="mt-8">
+                  <PhotoCard src={photos.solution} alt="Hiker on a mountain trail representing active healthy recovery" className="h-[280px]" />
+                </div>
+                <div className="mt-8">
                   <Disclaimer />
                 </div>
               </div>
               <div className="grid gap-4">
                 {citations.map((citation) => (
                   <article key={citation.title} className="rounded-[1.75rem] border border-white/10 bg-white/5 p-5">
-                    <div className="text-sm font-semibold uppercase tracking-[0.15em] text-[var(--cyan)]">{citation.journal}</div>
+                    <div className="text-sm font-semibold uppercase tracking-[0.15em] text-[#67E8F9]">{citation.journal}</div>
                     <h3 className="mt-2 text-xl font-semibold text-white">{citation.title}</h3>
                     <p className="mt-3 text-sm leading-7 text-slate-300">{citation.takeaway}</p>
                   </article>
@@ -391,10 +411,10 @@ export default function Home() {
             </div>
           </section>
 
-          <section id="inside" className="border-b border-white/10 bg-[var(--navy-dark)] px-4 py-16 sm:px-6 lg:px-8">
+          <section id="inside" className="border-b border-white/10 bg-[#0B1426] px-4 py-16 sm:px-6 lg:px-8">
             <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[1fr_0.9fr]">
               <div>
-                <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[var(--teal-light)]">Section 4 · What&apos;s inside</p>
+                <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#99F6E4]">Section 4 · What&apos;s inside</p>
                 <h2 className="mt-4 text-3xl font-semibold sm:text-4xl">Everything you need to build a research-informed recovery protocol.</h2>
                 <p className="mt-4 max-w-2xl text-lg leading-8 text-slate-300">
                   The core offer turns scattered research into a clean buyer journey: education, implementation cadence, dosing and timing guidance, and citations.
@@ -402,35 +422,38 @@ export default function Home() {
                 <div className="mt-8 grid gap-4 sm:grid-cols-2">
                   {modules.map((module, index) => (
                     <div key={module} className="rounded-[1.5rem] border border-white/10 bg-white/5 p-5">
-                      <div className="text-sm font-semibold text-[var(--cyan)]">Module {index + 1}</div>
+                      <div className="text-sm font-semibold text-[#67E8F9]">Module {index + 1}</div>
                       <p className="mt-2 text-base leading-7 text-slate-200">{module}</p>
                     </div>
                   ))}
                 </div>
               </div>
-              <div className="rounded-[2rem] border border-white/10 bg-[linear-gradient(180deg,rgba(20,184,166,0.12),rgba(255,255,255,0.02))] p-8">
-                <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[var(--teal-light)]">Included in the $67 protocol</p>
-                <ul className="mt-6 space-y-4 text-sm leading-7 text-slate-200">
-                  <li>• 40-page core protocol positioning for this launch page</li>
-                  <li>• Protocol guide and recovery decision framework</li>
-                  <li>• 30 / 60 / 90 day implementation calendar</li>
-                  <li>• Stacking, timing, and route comparison guidance</li>
-                  <li>• Research appendix, citation library, and FAQ guidance</li>
-                  <li>• 60-Day Research Guarantee and instant digital access</li>
-                </ul>
-                <div className="mt-8 rounded-[1.5rem] border border-[var(--teal)]/20 bg-[var(--teal)]/10 p-5 text-sm leading-7 text-slate-200">
-                  Positioning note: the page keeps claims educational and focuses on research translation, not treatment promises.
+              <div className="space-y-6">
+                <PhotoCard src={photos.inside} alt="Researcher studying samples in a modern laboratory" className="h-[280px] sm:h-[340px]" />
+                <div className="rounded-[2rem] border border-white/10 bg-[linear-gradient(180deg,rgba(13,148,136,0.12),rgba(255,255,255,0.02))] p-8">
+                  <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#99F6E4]">Included in the $67 protocol</p>
+                  <ul className="mt-6 space-y-4 text-sm leading-7 text-slate-200">
+                    <li>• 40-page core protocol positioning for this launch page</li>
+                    <li>• Protocol guide and recovery decision framework</li>
+                    <li>• 30 / 60 / 90 day implementation calendar</li>
+                    <li>• Stacking, timing, and route comparison guidance</li>
+                    <li>• Research appendix, citation library, and FAQ guidance</li>
+                    <li>• 60-Day Research Guarantee and instant digital access</li>
+                  </ul>
+                  <div className="mt-8 rounded-[1.5rem] border border-[#0D9488]/20 bg-[#0D9488]/10 p-5 text-sm leading-7 text-slate-200">
+                    Positioning note: the page keeps claims educational and focuses on research translation, not treatment promises.
+                  </div>
                 </div>
               </div>
             </div>
           </section>
 
-          <section className="border-b border-white/10 bg-[var(--navy)] px-4 py-16 sm:px-6 lg:px-8">
-            <div className="mx-auto max-w-7xl rounded-[2rem] border border-[var(--teal)]/20 bg-[linear-gradient(180deg,rgba(13,148,136,0.16),rgba(255,255,255,0.03))] p-8 sm:p-10">
-              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[var(--teal-light)]">Section 5 · KLOW blend</p>
-              <div className="mt-4 grid gap-8 lg:grid-cols-[1fr_0.85fr]">
+          <section className="border-b border-white/10 bg-[#1B2A4A] px-4 py-16 sm:px-6 lg:px-8">
+            <div className="mx-auto max-w-7xl rounded-[2rem] border border-[#0D9488]/20 bg-[linear-gradient(180deg,rgba(13,148,136,0.16),rgba(255,255,255,0.03))] p-8 sm:p-10">
+              <div className="grid gap-8 lg:grid-cols-[1fr_0.85fr] lg:items-center">
                 <div>
-                  <h2 className="text-3xl font-semibold sm:text-4xl">One blend, complete recovery support.</h2>
+                  <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#99F6E4]">Section 5 · KLOW blend</p>
+                  <h2 className="mt-4 text-3xl font-semibold sm:text-4xl">One blend, complete recovery support.</h2>
                   <p className="mt-4 max-w-2xl text-lg leading-8 text-slate-200">
                     KLOW is the convenience differentiator in this funnel. Instead of juggling multiple single vials, buyers are introduced to an all-in-one educational option built around BPC-157 + TB-500 + GHK-Cu + KPV.
                   </p>
@@ -438,8 +461,11 @@ export default function Home() {
                     Internal positioning places KLOW at <strong className="text-white">$175</strong>, giving this page a sharper contrast between a premium peptide stack and the low-friction information product.
                   </p>
                 </div>
-                <div className="rounded-[1.75rem] border border-white/10 bg-[var(--navy-dark)]/70 p-6">
-                  <div className="text-sm font-semibold uppercase tracking-[0.2em] text-[var(--cyan)]">KLOW contains</div>
+                <PhotoCard src={photos.klow} alt="Woman doing yoga by the water in a peaceful wellness setting" className="h-[320px]" />
+              </div>
+              <div className="mt-8 grid gap-6 lg:grid-cols-[0.95fr_1.05fr]">
+                <div className="rounded-[1.75rem] border border-white/10 bg-[#0B1426]/70 p-6">
+                  <div className="text-sm font-semibold uppercase tracking-[0.2em] text-[#67E8F9]">KLOW contains</div>
                   <ul className="mt-5 space-y-3 text-sm leading-7 text-slate-200">
                     <li>• BPC-157 for connective tissue and vascular signaling context</li>
                     <li>• TB-500 for migration and remodeling context</li>
@@ -447,36 +473,35 @@ export default function Home() {
                     <li>• KPV for anti-inflammatory support positioning</li>
                   </ul>
                 </div>
-              </div>
-              <div className="mt-8">
                 <Disclaimer />
               </div>
             </div>
           </section>
 
-          <section className="border-b border-white/10 bg-[var(--navy-dark)] px-4 py-16 sm:px-6 lg:px-8">
+          <section className="border-b border-white/10 bg-[#0B1426] px-4 py-16 sm:px-6 lg:px-8">
             <div className="mx-auto max-w-7xl">
-              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[var(--teal-light)]">Section 6 · Social proof / research</p>
-              <div className="mt-4 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+              <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
                 <div>
-                  <h2 className="text-3xl font-semibold sm:text-4xl">Built on published research and a growing peptide-curious market.</h2>
+                  <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#99F6E4]">Section 6 · Social proof / research</p>
+                  <h2 className="mt-4 text-3xl font-semibold sm:text-4xl">Built on published research and a growing peptide-curious market.</h2>
                   <p className="mt-4 max-w-2xl text-lg leading-8 text-slate-300">
                     Social proof is still light for this first launch, so the page leans on research density, quantified value, and clinical-style presentation instead of testimonial hype.
                   </p>
+                  <div className="mt-6 inline-flex rounded-full border border-white/10 bg-white/5 px-5 py-3 text-sm text-slate-200">Join researchers exploring peptide protocols</div>
                 </div>
-                <div className="rounded-full border border-white/10 bg-white/5 px-5 py-3 text-sm text-slate-200">Join researchers exploring peptide protocols</div>
+                <PhotoCard src={photos.research} alt="Scientist working in laboratory research environment" className="h-[320px] lg:h-[380px]" />
               </div>
               <div className="mt-10 grid gap-5 md:grid-cols-3">
                 <div className="rounded-[1.75rem] border border-white/10 bg-white/5 p-6">
-                  <div className="text-5xl font-semibold text-[var(--cyan)]">87%</div>
+                  <div className="text-5xl font-semibold text-[#67E8F9]">87%</div>
                   <p className="mt-3 text-sm leading-7 text-slate-300">Improvement-style tendon-healing stat used as a high-impact research callout on the page design.</p>
                 </div>
                 <div className="rounded-[1.75rem] border border-white/10 bg-white/5 p-6">
-                  <div className="text-5xl font-semibold text-[var(--cyan)]">50+</div>
+                  <div className="text-5xl font-semibold text-[#67E8F9]">50+</div>
                   <p className="mt-3 text-sm leading-7 text-slate-300">Peer-reviewed studies referenced across the protocol positioning and master reference library.</p>
                 </div>
                 <div className="rounded-[1.75rem] border border-white/10 bg-white/5 p-6">
-                  <div className="text-5xl font-semibold text-[var(--cyan)]">8-12</div>
+                  <div className="text-5xl font-semibold text-[#67E8F9]">8-12</div>
                   <p className="mt-3 text-sm leading-7 text-slate-300">Weeks is the longer educational recovery horizon used for the main mechanism and timeline framing.</p>
                 </div>
               </div>
@@ -486,24 +511,26 @@ export default function Home() {
             </div>
           </section>
 
-          <section id="pricing" className="border-b border-white/10 bg-[var(--navy)] px-4 py-16 sm:px-6 lg:px-8">
-            <div className="mx-auto max-w-7xl">
-              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[var(--teal-light)]">Section 7 · Pricing</p>
+          <section id="pricing" className="relative isolate overflow-hidden border-b border-white/10 bg-[#1B2A4A] px-4 py-16 sm:px-6 lg:px-8">
+            <img src={photos.pricing} alt="Runner on a mountain ridge at sunrise" loading="lazy" className="absolute inset-0 h-full w-full object-cover opacity-20" />
+            <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(27,42,74,0.94),rgba(27,42,74,0.98))]" />
+            <div className="relative mx-auto max-w-7xl">
+              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#99F6E4]">Section 7 · Pricing</p>
               <h2 className="mt-4 text-3xl font-semibold sm:text-4xl">A free guide, a $17 tripwire, and a $67 core offer.</h2>
               <div className="mt-10 grid gap-5 lg:grid-cols-3">
-                <div className="rounded-[2rem] border border-white/10 bg-white/5 p-8">
-                  <div className="text-sm font-semibold uppercase tracking-[0.2em] text-[var(--cyan)]">Free</div>
+                <div className="rounded-[2rem] border border-white/10 bg-white/5 p-8 backdrop-blur-sm">
+                  <div className="text-sm font-semibold uppercase tracking-[0.2em] text-[#67E8F9]">Free</div>
                   <h3 className="mt-3 text-2xl font-semibold">5 Peptides Proven to Support Recovery</h3>
                   <p className="mt-3 text-sm leading-7 text-slate-300">Email opt-in guide introducing the recovery mechanisms, key compounds, and next steps.</p>
                 </div>
-                <div className="rounded-[2rem] border border-[var(--teal)]/30 bg-[var(--teal)]/10 p-8">
-                  <div className="text-sm font-semibold uppercase tracking-[0.2em] text-[var(--teal-light)]">Tripwire</div>
+                <div className="rounded-[2rem] border border-[#0D9488]/30 bg-[#0D9488]/10 p-8 backdrop-blur-sm">
+                  <div className="text-sm font-semibold uppercase tracking-[0.2em] text-[#99F6E4]">Tripwire</div>
                   <h3 className="mt-3 text-2xl font-semibold">$17 · 10-Day Pain Relief Quick Start</h3>
                   <p className="mt-3 text-sm leading-7 text-slate-200">A low-friction quick-start guide with a 10-day action plan, simple implementation guidance, and quick-reference pages.</p>
                 </div>
                 <div className="rounded-[2rem] border border-white/10 bg-white p-8 text-slate-900">
-                  <div className="text-sm font-semibold uppercase tracking-[0.2em] text-[var(--teal)]">Core offer</div>
-                  <h3 className="mt-3 text-2xl font-semibold text-[var(--navy-dark)]">$67 · Peptide Pain Recovery Protocol</h3>
+                  <div className="text-sm font-semibold uppercase tracking-[0.2em] text-[#0D9488]">Core offer</div>
+                  <h3 className="mt-3 text-2xl font-semibold text-[#1B2A4A]">$67 · Peptide Pain Recovery Protocol</h3>
                   <p className="mt-3 text-sm leading-7 text-slate-600">Total value: $397 — Your price: $67. Includes the protocol guide, dosing and timing guidance, 30/60/90 calendar, citations, and guarantee.</p>
                   <div className="mt-6 rounded-2xl bg-slate-100 p-4 text-sm font-medium text-slate-700">60-Day Research Guarantee</div>
                 </div>
@@ -511,13 +538,15 @@ export default function Home() {
             </div>
           </section>
 
-          <section id="faq" className="border-b border-white/10 bg-[var(--navy-dark)] px-4 py-16 sm:px-6 lg:px-8">
-            <div className="mx-auto max-w-7xl">
-              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[var(--teal-light)]">Section 8 · FAQ</p>
+          <section id="faq" className="relative isolate overflow-hidden border-b border-white/10 bg-[#0B1426] px-4 py-16 sm:px-6 lg:px-8">
+            <img src={photos.faq} alt="Calming mountain lake landscape" loading="lazy" className="absolute inset-0 h-full w-full object-cover opacity-15" />
+            <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(11,20,38,0.94),rgba(11,20,38,0.98))]" />
+            <div className="relative mx-auto max-w-7xl">
+              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#99F6E4]">Section 8 · FAQ</p>
               <h2 className="mt-4 text-3xl font-semibold sm:text-4xl">Questions buyers ask before they move.</h2>
               <div className="mt-10 grid gap-4 lg:grid-cols-2">
                 {faqs.map((faq) => (
-                  <details key={faq.question} className="group rounded-[1.75rem] border border-white/10 bg-white/5 p-6 open:bg-white/7">
+                  <details key={faq.question} className="group rounded-[1.75rem] border border-white/10 bg-white/5 p-6 open:bg-white/7 backdrop-blur-sm">
                     <summary className="cursor-pointer list-none text-lg font-semibold">{faq.question}</summary>
                     <p className="mt-4 text-sm leading-7 text-slate-300">{faq.answer}</p>
                   </details>
@@ -526,18 +555,20 @@ export default function Home() {
             </div>
           </section>
 
-          <section className="border-b border-white/10 bg-[linear-gradient(180deg,#0F1B2D_0%,#0B1426_100%)] px-4 py-16 sm:px-6 lg:px-8">
-            <div className="mx-auto max-w-5xl text-center">
-              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[var(--teal-light)]">Section 9 · Final CTA</p>
+          <section className="relative isolate overflow-hidden border-b border-white/10 px-4 py-16 sm:px-6 lg:px-8">
+            <img src={photos.finalCta} alt="Hiker reaching a mountain summit at golden hour" loading="lazy" className="absolute inset-0 h-full w-full object-cover" />
+            <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(11,20,38,0.78),rgba(11,20,38,0.9))]" />
+            <div className="relative mx-auto max-w-5xl text-center">
+              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#99F6E4]">Section 9 · Final CTA</p>
               <h2 className="mt-4 text-3xl font-semibold sm:text-5xl">Limited introductory pricing while the proof stack is still being built.</h2>
-              <p className="mx-auto mt-5 max-w-3xl text-lg leading-8 text-slate-300">
+              <p className="mx-auto mt-5 max-w-3xl text-lg leading-8 text-slate-200">
                 Start with the free guide, unlock the $17 quick-start toolkit, and move into the $67 protocol once you&apos;re ready for the full system. Clean funnel. Low friction. Stronger education.
               </p>
               <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
-                <a href="#optin" className="rounded-full bg-[var(--teal)] px-6 py-4 text-base font-semibold text-white transition hover:bg-[var(--teal-light)]">Get the free guide</a>
+                <a href="#optin" className="rounded-full bg-[#0D9488] px-6 py-4 text-base font-semibold text-white transition hover:bg-[#14B8A6]">Get the free guide</a>
                 <a href="#pricing" className="rounded-full border border-white/15 px-6 py-4 text-base font-semibold text-white transition hover:bg-white/5">See the full pricing stack</a>
               </div>
-              <div className="mt-8 flex flex-wrap items-center justify-center gap-3 text-sm text-slate-300">
+              <div className="mt-8 flex flex-wrap items-center justify-center gap-3 text-sm text-slate-200">
                 <span className="rounded-full border border-white/10 px-4 py-2">Research-backed positioning</span>
                 <span className="rounded-full border border-white/10 px-4 py-2">60-Day Research Guarantee</span>
                 <span className="rounded-full border border-white/10 px-4 py-2">Instant digital access</span>
@@ -548,11 +579,11 @@ export default function Home() {
       )}
 
       {stage !== "landing" && (
-        <main className="min-h-[calc(100vh-81px)] bg-[linear-gradient(180deg,#0B1426_0%,#0F1B2D_100%)] px-4 py-14 sm:px-6 lg:px-8">
+        <main className="min-h-[calc(100vh-81px)] bg-[linear-gradient(180deg,#0B1426_0%,#10203A_100%)] px-4 py-14 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-6xl space-y-8">
             <section className="rounded-[2rem] border border-white/10 bg-white p-8 text-slate-900 shadow-[0_30px_80px_rgba(0,0,0,0.35)] sm:p-10">
-              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[var(--teal)]">State 2 · Thank-you page</p>
-              <h1 className="mt-4 text-3xl font-semibold text-[var(--navy-dark)] sm:text-4xl">
+              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#0D9488]">State 2 · Thank-you page</p>
+              <h1 className="mt-4 text-3xl font-semibold text-[#1B2A4A] sm:text-4xl">
                 {name ? `${name}, your free recovery guide is on the way.` : "Your free recovery guide is on the way."}
               </h1>
               <p className="mt-4 max-w-3xl text-lg leading-8 text-slate-600">
@@ -562,8 +593,8 @@ export default function Home() {
 
             {stage === "tripwire" && (
               <section className="grid gap-6 lg:grid-cols-[1fr_0.8fr]">
-                <div className="rounded-[2rem] border border-[var(--teal)]/30 bg-[var(--teal)]/10 p-8 text-white">
-                  <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[var(--teal-light)]">One-time tripwire</p>
+                <div className="rounded-[2rem] border border-[#0D9488]/30 bg-[#0D9488]/10 p-8 text-white">
+                  <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#99F6E4]">One-time tripwire</p>
                   <h2 className="mt-4 text-3xl font-semibold sm:text-4xl">Wait — start your recovery today for just $17.</h2>
                   <p className="mt-4 text-lg leading-8 text-slate-200">
                     Upgrade to the 10-Day Pain Relief Quick Start and get a simple 10-day action plan, quick-reference pages, and a cleaner bridge into the full Peptide Pain Recovery Protocol.
@@ -573,8 +604,8 @@ export default function Home() {
                       <li key={bullet}>• {bullet}</li>
                     ))}
                   </ul>
-                  <div className="mt-8 flex flex-col gap-4 sm:flex-row">
-                    <a href="https://checkout.example.com/pain-recovery-quick-start" className="rounded-full bg-white px-6 py-4 text-center text-base font-semibold text-[var(--navy-dark)] transition hover:bg-slate-100">
+                  <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:flex-wrap">
+                    <a href="https://checkout.example.com/pain-recovery-quick-start" className="rounded-full bg-white px-6 py-4 text-center text-base font-semibold text-[#1B2A4A] transition hover:bg-slate-100">
                       Yes — give me the $17 Quick Start
                     </a>
                     <button onClick={advanceFromTripwire} className="rounded-full border border-white/15 px-6 py-4 text-base font-semibold text-white transition hover:bg-white/5">
@@ -585,13 +616,16 @@ export default function Home() {
                     </button>
                   </div>
                 </div>
-                <aside className="rounded-[2rem] border border-white/10 bg-white/5 p-8 text-white">
-                  <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[var(--cyan)]">Why this converts</p>
-                  <div className="mt-5 space-y-4 text-sm leading-7 text-slate-300">
-                    <p>Free guide = concepts.</p>
-                    <p>$17 quick start = simple Day 1-10 action plan.</p>
-                    <p>$67 protocol = full 30/60/90 day system.</p>
-                    <p>This bridge keeps the funnel focused on one fast win and one final core offer.</p>
+                <aside className="space-y-6">
+                  <PhotoCard src={photos.tripwire} alt="Athlete in post-workout recovery stretch" className="h-[250px]" />
+                  <div className="rounded-[2rem] border border-white/10 bg-white/5 p-8 text-white">
+                    <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#67E8F9]">Why this converts</p>
+                    <div className="mt-5 space-y-4 text-sm leading-7 text-slate-300">
+                      <p>Free guide = concepts.</p>
+                      <p>$17 quick start = simple Day 1-10 action plan.</p>
+                      <p>$67 protocol = full 30/60/90 day system.</p>
+                      <p>This bridge keeps the funnel focused on one fast win and one final core offer.</p>
+                    </div>
                   </div>
                 </aside>
               </section>
@@ -600,25 +634,25 @@ export default function Home() {
             {stage === "core" && (
               <section className="grid gap-6 lg:grid-cols-[1fr_0.8fr]">
                 <div className="rounded-[2rem] border border-white/10 bg-white/5 p-8 text-white">
-                  <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[var(--teal-light)]">Core offer pitch</p>
+                  <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#99F6E4]">Core offer pitch</p>
                   <h2 className="mt-4 text-3xl font-semibold sm:text-4xl">Ready for the full recovery system?</h2>
                   <p className="mt-4 text-lg leading-8 text-slate-200">
                     The Peptide Pain Recovery Protocol organizes the entire framework into one clean digital product: mechanism education, dosing and timing guidance, 30/60/90 day planning, and citations.
                   </p>
                   <div className="mt-8 grid gap-4 sm:grid-cols-2">
                     <div className="rounded-[1.5rem] border border-white/10 bg-white/5 p-5">
-                      <div className="text-sm font-semibold uppercase tracking-[0.2em] text-[var(--cyan)]">Your price</div>
+                      <div className="text-sm font-semibold uppercase tracking-[0.2em] text-[#67E8F9]">Your price</div>
                       <div className="mt-2 text-4xl font-semibold">$67</div>
                       <p className="mt-2 text-sm leading-7 text-slate-300">Founder pricing for the first launch.</p>
                     </div>
                     <div className="rounded-[1.5rem] border border-white/10 bg-white/5 p-5">
-                      <div className="text-sm font-semibold uppercase tracking-[0.2em] text-[var(--cyan)]">Value stack</div>
+                      <div className="text-sm font-semibold uppercase tracking-[0.2em] text-[#67E8F9]">Value stack</div>
                       <div className="mt-2 text-2xl font-semibold">$397 total value</div>
                       <p className="mt-2 text-sm leading-7 text-slate-300">Includes protocol guide, dosing and timing guidance, 30/60/90 calendar, citations, and guarantee.</p>
                     </div>
                   </div>
                   <div className="mt-8 flex flex-col gap-4 sm:flex-row">
-                    <a href="https://checkout.example.com/peptide-pain-recovery-protocol" className="rounded-full bg-[var(--teal)] px-6 py-4 text-center text-base font-semibold text-white transition hover:bg-[var(--teal-light)]">
+                    <a href="https://checkout.example.com/peptide-pain-recovery-protocol" className="rounded-full bg-[#0D9488] px-6 py-4 text-center text-base font-semibold text-white transition hover:bg-[#14B8A6]">
                       Get the $67 Pain Recovery Protocol
                     </a>
                     <a href="/#faq" className="rounded-full border border-white/15 px-6 py-4 text-center text-base font-semibold text-white transition hover:bg-white/5">
@@ -626,15 +660,18 @@ export default function Home() {
                     </a>
                   </div>
                 </div>
-                <aside className="rounded-[2rem] border border-white/10 bg-white p-8 text-slate-900">
-                  <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[var(--teal)]">Included</p>
-                  <ul className="mt-5 space-y-3 text-sm leading-7 text-slate-700">
-                    <li>• Protocol guide with research-backed framework</li>
-                    <li>• 30 / 60 / 90 day calendar</li>
-                    <li>• Dosing, timing, and administration guidance</li>
-                    <li>• Research appendix and citations</li>
-                    <li>• 60-Day Research Guarantee</li>
-                  </ul>
+                <aside className="space-y-6">
+                  <PhotoCard src={photos.core} alt="Healthy active person resting after exercise" className="h-[250px]" />
+                  <div className="rounded-[2rem] border border-white/10 bg-white p-8 text-slate-900">
+                    <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#0D9488]">Included</p>
+                    <ul className="mt-5 space-y-3 text-sm leading-7 text-slate-700">
+                      <li>• Protocol guide with research-backed framework</li>
+                      <li>• 30 / 60 / 90 day calendar</li>
+                      <li>• Dosing, timing, and administration guidance</li>
+                      <li>• Research appendix and citations</li>
+                      <li>• 60-Day Research Guarantee</li>
+                    </ul>
+                  </div>
                 </aside>
               </section>
             )}
@@ -642,7 +679,7 @@ export default function Home() {
         </main>
       )}
 
-      <footer className="bg-[var(--navy-dark)] px-4 py-10 text-sm text-slate-400 sm:px-6 lg:px-8">
+      <footer className="bg-[#0B1426] px-4 py-10 text-sm text-slate-400 sm:px-6 lg:px-8">
         <div className="mx-auto flex max-w-7xl flex-col gap-4 border-t border-white/10 pt-8 md:flex-row md:items-center md:justify-between">
           <div>
             <div className="font-semibold uppercase tracking-[0.2em] text-white">PeptideLaunch</div>
