@@ -24,7 +24,7 @@ const tripwireItems = [
   {
     name: "Decision Day Framework",
     value: "$17",
-    desc: "A clear checkpoint at Day 10 to evaluate what you've learned and decide whether to continue into the full system.",
+    desc: "A clear checkpoint at Day 10 to evaluate what you've learned and decide your next steps with confidence.",
   },
 ];
 
@@ -91,7 +91,7 @@ export default function ThankYouPage() {
               <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#99F6E4]">One-time offer — only available on this page</p>
               <h3 className="mt-4 text-3xl font-semibold sm:text-4xl">The 10-Day Pain Relief Quick Start</h3>
               <p className="mt-4 text-lg leading-8 text-slate-200">
-                Turn the free overview into a step-by-step first 10 days. Know exactly what to focus on, what to track, and how to evaluate whether to continue into the full system.
+                Turn the free overview into a step-by-step first 10 days. Know exactly what to focus on, what to track, and how to evaluate your progress.
               </p>
 
               {/* Value Stack */}

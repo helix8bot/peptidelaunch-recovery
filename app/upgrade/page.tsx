@@ -45,14 +45,9 @@ const valueStack = [
 
 const faqs = [
   {
-    question: "How is this different from the free guide?",
+    question: "What makes this a complete system?",
     answer:
-      "The free guide gives you the big picture — which peptides are most studied and why they matter. This is the complete system: the full 6-pillar framework, planning calendars, tracking worksheets, timing guides, and the entire research appendix. It's the difference between an overview and a comprehensive reference you can use for months.",
-  },
-  {
-    question: "What if I already bought the 10-Day Quick Start?",
-    answer:
-      "The Quick Start covers the first 10 days. This picks up where it leaves off and extends through a full 90-day framework. Think of the Quick Start as the on-ramp — this is the complete highway.",
+      "This isn't just an overview — it's the full 6-pillar framework, planning calendars, tracking worksheets, timing guides, and the entire research appendix. A comprehensive reference you can use for months.",
   },
   {
     question: "Is this a protocol or treatment plan?",
@@ -116,7 +111,7 @@ export default function UpgradePage() {
             <h2 className="text-3xl font-semibold sm:text-4xl">At some point, you need the full picture.</h2>
             <div className="mt-6 space-y-5 text-lg leading-8 text-slate-300">
               <p>
-                Whether you&apos;re starting from the free guide or the 10-Day Quick Start, there comes a point where the overview isn&apos;t enough. You start asking deeper questions:
+                You&apos;ve started exploring the recovery conversation. But at some point, the overview isn&apos;t enough. You start asking deeper questions:
               </p>
               <div className="grid gap-3 sm:grid-cols-2">
                 {[
@@ -229,49 +224,7 @@ export default function UpgradePage() {
           </div>
         </section>
 
-        {/* Progression */}
-        <section className="border-b border-white/10 bg-[#1B2A4A] px-4 py-16 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-4xl text-center">
-            <h2 className="text-3xl font-semibold sm:text-4xl">The complete progression</h2>
-            <p className="mx-auto mt-4 max-w-2xl text-lg leading-8 text-slate-300">
-              Each layer builds on the last. You choose how deep to go.
-            </p>
-            <div className="mt-10 grid gap-4 sm:grid-cols-3">
-              {[
-                {
-                  label: "Free Guide",
-                  desc: "Understand the 5 peptides and the big picture.",
-                  highlight: false,
-                },
-                {
-                  label: "10-Day Quick Start",
-                  desc: "The first 10 days organized and trackable.",
-                  highlight: false,
-                },
-                {
-                  label: "Full 90-Day System",
-                  desc: "The complete framework with every tool, every reference, every worksheet.",
-                  highlight: true,
-                },
-              ].map((item) => (
-                <div
-                  key={item.label}
-                  className={`rounded-[1.5rem] border p-6 ${
-                    item.highlight
-                      ? "border-[#0D9488]/30 bg-[#0D9488]/10"
-                      : "border-white/10 bg-white/5"
-                  }`}
-                >
-                  <h3 className={`text-lg font-semibold ${item.highlight ? "text-[#99F6E4]" : "text-white"}`}>{item.label}</h3>
-                  <p className="mt-2 text-sm leading-7 text-slate-300">{item.desc}</p>
-                  {item.highlight && (
-                    <p className="mt-3 text-xs font-semibold text-[#99F6E4]">← You are here</p>
-                  )}
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
+
 
         {/* FAQ */}
         <section className="border-b border-white/10 bg-[#0B1426] px-4 py-16 sm:px-6 lg:px-8">
@@ -294,7 +247,7 @@ export default function UpgradePage() {
           <div className="mx-auto max-w-3xl text-center">
             <h2 className="text-3xl font-semibold sm:text-4xl">Ready to see the full picture?</h2>
             <p className="mx-auto mt-4 max-w-2xl text-lg leading-8 text-slate-300">
-              The free guide gives you the overview. The Quick Start gives you the first 10 days. This gives you the complete 90-day system — every tool, every framework, every reference.
+              The complete 90-day recovery research system — every tool, every framework, every reference in one place.
             </p>
             <a
               href="#checkout-67"
