@@ -252,7 +252,7 @@ export default function Home() {
                   Research-first education for the pain-management loop
                 </div>
 
-                {/* Triple Hook */}
+                {/* Hero headlines */}
                 <div className="space-y-5">
                   <p className="text-xl font-medium text-[#67E8F9] sm:text-2xl">Still stuck in the pain-management loop?</p>
                   <h1 className="max-w-4xl text-3xl font-semibold leading-tight sm:text-4xl lg:text-5xl">
@@ -455,7 +455,7 @@ export default function Home() {
                 <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#99F6E4]">What you get</p>
                 <h2 className="mt-4 text-3xl font-semibold sm:text-4xl">Inside the Full 30/60/90-Day Recovery System</h2>
                 <p className="mx-auto mt-4 max-w-3xl text-lg leading-8 text-slate-300">
-                  Here&apos;s everything included — and what each piece would cost if sold separately.
+                  Here&apos;s everything included in the complete system.
                 </p>
               </div>
 
@@ -471,11 +471,11 @@ export default function Home() {
                 ))}
               </div>
 
-              {/* Total value callout */}
+              {/* Pricing summary */}
               <div className="mt-10 rounded-[1.75rem] border border-[#0D9488]/30 bg-[#0D9488]/10 p-8 text-center">
-                <div className="text-sm font-semibold uppercase tracking-[0.2em] text-[#99F6E4]">Total value</div>
+                <div className="text-sm font-semibold uppercase tracking-[0.2em] text-[#99F6E4]">If purchased separately</div>
                 <div className="mt-2 text-5xl font-semibold text-white">$499+</div>
-                <p className="mt-3 text-lg leading-8 text-slate-200">Founder launch pricing: <span className="font-semibold text-white">$67</span></p>
+                <p className="mt-3 text-lg leading-8 text-slate-200">Your price today: <span className="font-semibold text-white">$67</span></p>
                 <p className="mt-1 text-sm text-slate-300">This pricing is introductory and will increase.</p>
               </div>
             </div>
@@ -529,8 +529,8 @@ export default function Home() {
                   <h3 className="mt-3 text-2xl font-semibold text-[#1B2A4A]">30/60/90-Day Recovery System</h3>
                   <p className="mt-3 text-sm leading-7 text-slate-600">The complete educational framework with the 6-pillar model, profile library, planning calendar, tracking worksheets, and full research appendix.</p>
                   <div className="mt-4 rounded-xl bg-slate-50 p-4">
-                    <div className="text-sm text-slate-500">Total value: $499+</div>
-                    <div className="mt-1 text-2xl font-semibold text-[#0D9488]">Founder pricing: $67</div>
+                    <div className="text-sm text-slate-500">If purchased separately: $499+</div>
+                    <div className="mt-1 text-2xl font-semibold text-[#0D9488]">Your price: $67</div>
                     <p className="mt-1 text-xs text-slate-400">This pricing is introductory and will increase.</p>
                   </div>
                   <p className="mt-3 text-xs text-slate-500">60-Day Research Guarantee — if it doesn&apos;t help you organize a clearer recovery plan, email us for a full refund.</p>
@@ -551,7 +551,7 @@ export default function Home() {
           <section id="faq" className="border-b border-white/10 bg-[#0B1426] px-4 py-16 sm:px-6 lg:px-8">
             <div className="mx-auto max-w-7xl">
               <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#99F6E4]">FAQ</p>
-              <h2 className="mt-4 text-3xl font-semibold sm:text-4xl">Questions people ask before they move.</h2>
+              <h2 className="mt-4 text-3xl font-semibold sm:text-4xl">Your Questions, Answered</h2>
               <div className="mt-10 grid gap-4 lg:grid-cols-2">
                 {faqs.map((faq) => (
                   <details key={faq.question} className="group rounded-[1.75rem] border border-white/10 bg-white/5 p-6 backdrop-blur-sm">
@@ -684,11 +684,11 @@ export default function Home() {
 
                   <div className="mt-8 grid gap-4 sm:grid-cols-2">
                     <div className="rounded-[1.5rem] border border-white/10 bg-white/5 p-5">
-                      <div className="text-sm font-semibold uppercase tracking-[0.2em] text-[#67E8F9]">Total value</div>
+                      <div className="text-sm font-semibold uppercase tracking-[0.2em] text-[#67E8F9]">If purchased separately</div>
                       <div className="mt-2 text-3xl font-semibold">$499+</div>
                     </div>
                     <div className="rounded-[1.5rem] border border-[#0D9488]/30 bg-[#0D9488]/10 p-5">
-                      <div className="text-sm font-semibold uppercase tracking-[0.2em] text-[#99F6E4]">Founder pricing</div>
+                      <div className="text-sm font-semibold uppercase tracking-[0.2em] text-[#99F6E4]">Your price</div>
                       <div className="mt-2 text-3xl font-semibold">$67</div>
                       <p className="mt-1 text-xs text-slate-300">This pricing is introductory and will increase.</p>
                     </div>
