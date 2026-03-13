@@ -1,16 +1,8 @@
 "use client";
 
-import { FormEvent, useEffect, useMemo, useState } from "react";
+import { FormEvent, useState } from "react";
 
-type FunnelStage = "landing" | "tripwire" | "core";
-
-type Citation = {
-  title: string;
-  journal: string;
-  takeaway: string;
-};
-
-const citations: Citation[] = [
+const citations = [
   {
     title: "Seiwerth et al. 2018",
     journal: "Current Pharmaceutical Design",
@@ -46,17 +38,7 @@ const faqs = [
   {
     question: "What will I get in the free guide?",
     answer:
-      "A concise research-first overview of the 5 peptides most discussed in the recovery conversation, what pathways they are studied for, and how to think about them without guesswork.",
-  },
-  {
-    question: "What makes the 10-Day Recovery Plan different?",
-    answer:
-      "The 10-Day Plan turns the free overview into a structured first-10-days roadmap with a daily tracking grid, quick-reference sheets, and a clear bridge into the full system.",
-  },
-  {
-    question: "What makes the full 30/60/90-Day system different?",
-    answer:
-      "It organizes the complete educational framework: the 6-pillar recovery model, mechanism summaries, study notes, planning calendar, tracking worksheets, and a full research appendix with 50+ citations.",
+      "A concise research-first overview of the 5 peptides most discussed in the recovery conversation — what pathways they are studied for, and how to think about them without guesswork.",
   },
   {
     question: "Do I need injections or dosing guidance?",
@@ -64,79 +46,57 @@ const faqs = [
       "No. Everything here is educational and research-first. The focus is on understanding the literature, mechanisms, and framework clearly.",
   },
   {
-    question: "What if it's not for me?",
+    question: "How is this different from what I find on Reddit or forums?",
     answer:
-      "The free guide costs nothing. The 10-Day Plan has a 30-day money-back guarantee. The full system has a 60-Day Research Guarantee — if the educational framework doesn't help you organize a clearer recovery plan, email us for a full refund.",
+      "This guide is built from 50+ peer-reviewed studies, organized into a clear framework. Instead of sorting through contradictory forum posts, you get the research distilled into one place with citations you can verify yourself.",
+  },
+  {
+    question: "What if peptides aren't right for me?",
+    answer:
+      "That's exactly why education comes first. The guide helps you understand what each compound is studied for so you can have an informed conversation with your healthcare provider — not make decisions based on hype.",
+  },
+  {
+    question: "Is my email safe?",
+    answer:
+      "Yes. We'll send you the guide and occasional research updates. You can unsubscribe with one click anytime. We never share or sell your information.",
   },
 ];
 
 const painPoints = [
-  "Still cycling through painkillers, procedures, and short-lived relief without a coherent framework?",
-  "Still hearing conflicting opinions without understanding which recovery pathway each compound is actually studied for?",
-  "Still trying to compare BPC-157, TB-500, GHK-Cu, KPV, and SS-31 from random Reddit posts and forum fragments?",
-  "Still unsure what belongs in a serious recovery-research conversation versus what is just hype and marketing?",
+  "Still cycling through painkillers and procedures that only mask what's happening underneath?",
+  "Still hearing conflicting opinions from different providers — without understanding which recovery pathway actually applies to you?",
+  "Still trying to piece together BPC-157, TB-500, GHK-Cu, and KPV research from scattered Reddit threads and forum fragments?",
+  "Still unsure what belongs in a serious recovery conversation versus what's just marketing noise?",
 ];
 
-const coreValueStack = [
+const guideContents = [
   {
-    name: "The 6-Pillar Recovery Framework",
-    value: "$147",
-    body: "Understand the key recovery pathways and how they fit together — the structural foundation everything else builds on.",
+    title: "BPC-157 — The Repair Anchor",
+    desc: "What the research says about tissue repair signaling and why it's the most-discussed compound in the recovery space.",
   },
   {
-    name: "30/60/90-Day Planning Calendar",
-    value: "$67",
-    body: "See how to organize the research over time with a phased approach instead of trying to absorb everything at once.",
+    title: "TB-500 — The Remodeling Partner",
+    desc: "How thymosin beta-4 research relates to wound healing, flexibility, and tissue remodeling pathways.",
   },
   {
-    name: "Peptide Profile Library",
-    value: "$57",
-    body: "Fast-reference pages for BPC-157, TB-500, GHK-Cu, SS-31, and KPV — what each is studied for and where it fits.",
+    title: "GHK-Cu — The Collagen Signal",
+    desc: "The copper peptide research on skin, tissue, and connective-tissue gene expression.",
   },
   {
-    name: "Stacking + Timing Research Guide",
-    value: "$47",
-    body: "How published research approaches compound combinations, sequencing, and timing — organized for easy comparison.",
+    title: "KPV — The Inflammation Logic",
+    desc: "What published studies suggest about alpha-MSH fragments and inflammatory signaling modulation.",
   },
   {
-    name: "Symptom + Function Tracking Worksheets",
-    value: "$37",
-    body: "Monitor trends instead of guessing. Structured worksheets that help you organize notes and track what matters.",
+    title: "SS-31 — The Cellular Energy Factor",
+    desc: "Mitochondrial-targeted research and why cellular energy matters in the recovery conversation.",
   },
-  {
-    name: "Pattern Decoder + Troubleshooting Guide",
-    value: "$47",
-    body: "Know what to adjust before you overcomplicate the stack. Common patterns, decision points, and research-backed logic.",
-  },
-  {
-    name: "Research Appendix + Citation Library",
-    value: "$97",
-    body: "50+ curated citations with plain-English summaries — the evidence base that makes the whole system credible.",
-  },
-];
-
-const tripwireValueStack = [
-  { name: "10-Day Recovery Roadmap", value: "$27" },
-  { name: "Daily Tracking Grid", value: "$17" },
-  { name: "Quick Reference Sheets", value: "$19" },
-  { name: "Decision Day Framework", value: "$17" },
-];
-
-const proofStats = [
-  { value: "50+", label: "peer-reviewed studies cited" },
-  { value: "40", label: "page comprehensive research guide" },
-  { value: "15", label: "page quick-start framework" },
-  { value: "11", label: "page overview guide" },
 ];
 
 const photos = {
   hero: "https://images.unsplash.com/photo-1626440861759-b3d7e45ee88e?w=1200&q=80",
   pain: "https://images.unsplash.com/photo-1562771379-eafdca7a02f8?w=800&q=80",
   research: "https://images.unsplash.com/photo-1614308459036-779d0dfe51ff?w=800&q=80",
-  stack: "https://images.unsplash.com/photo-1707944746058-4da338d0f827?w=800&q=80",
   final: "https://images.unsplash.com/photo-1526772662000-3f88f10405ff?w=1200&q=80",
-  tripwire: "https://images.unsplash.com/photo-1626440861747-a723ff8f3fb1?w=800&q=80",
-  core: "https://images.unsplash.com/photo-1630057105795-d858189bee44?w=800&q=80",
 };
 
 function Disclaimer() {
@@ -147,37 +107,11 @@ function Disclaimer() {
   );
 }
 
-function PhotoCard({ src, alt, className = "", eager = false }: { src: string; alt: string; className?: string; eager?: boolean }) {
-  return (
-    <div className={`overflow-hidden rounded-[2rem] border border-white/10 bg-white/5 shadow-[0_24px_60px_rgba(15,23,42,0.18)] ${className}`}>
-      <img src={src} alt={alt} loading={eager ? "eager" : "lazy"} className="h-full w-full object-cover" />
-    </div>
-  );
-}
-
-export default function Home() {
-  const [stage, setStage] = useState<FunnelStage>("landing");
+function OptinForm({ id, compact = false }: { id: string; compact?: boolean }) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const [submitted, setSubmitted] = useState(false);
-
-  useEffect(() => {
-    const savedStage = window.localStorage.getItem("recoveryFunnelStage") as FunnelStage | null;
-    const savedName = window.localStorage.getItem("recoveryLeadName");
-    const savedEmail = window.localStorage.getItem("recoveryLeadEmail");
-
-    if (savedStage === "tripwire" || savedStage === "core") setStage(savedStage);
-    if (savedName) setName(savedName);
-    if (savedEmail) setEmail(savedEmail);
-  }, []);
-
-  const ctaLabel = useMemo(() => {
-    if (stage === "tripwire") return "Get the 10-Day Recovery Plan";
-    if (stage === "core") return "Unlock the Full Recovery System";
-    return "Get the 5-Peptide Recovery Guide";
-  }, [stage]);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -187,10 +121,6 @@ export default function Home() {
     try {
       const payload = { name, email, source: "pain-recovery-landing-page", submittedAt: new Date().toISOString() };
 
-      window.localStorage.setItem("recoveryLeadName", name);
-      window.localStorage.setItem("recoveryLeadEmail", email);
-      window.localStorage.setItem("recoveryFunnelStage", "tripwire");
-
       await fetch("https://services.leadconnectorhq.com/hooks/recovery-optin", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -198,8 +128,7 @@ export default function Home() {
         mode: "cors",
       }).catch(() => null);
 
-      setSubmitted(true);
-      setStage("tripwire");
+      window.location.href = "/thank-you";
     } catch {
       setError("Something went wrong. Please try again.");
     } finally {
@@ -207,16 +136,49 @@ export default function Home() {
     }
   }
 
-  function skipTripwire() {
-    window.localStorage.setItem("recoveryFunnelStage", "core");
-    setStage("core");
+  if (compact) {
+    return (
+      <form id={id} className="flex flex-col gap-3 sm:flex-row sm:items-end" onSubmit={handleSubmit}>
+        <input required value={name} onChange={(e) => setName(e.target.value)} className="flex-1 rounded-2xl border border-slate-200 bg-white px-4 py-3 text-base text-slate-900 outline-none transition focus:border-[#0D9488] focus:ring-4 focus:ring-[#0D9488]/10" placeholder="First name" />
+        <input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} className="flex-1 rounded-2xl border border-slate-200 bg-white px-4 py-3 text-base text-slate-900 outline-none transition focus:border-[#0D9488] focus:ring-4 focus:ring-[#0D9488]/10" placeholder="Email address" />
+        <button type="submit" disabled={loading} className="rounded-2xl bg-[#0D9488] px-6 py-3 text-base font-semibold text-white transition hover:bg-[#14B8A6] disabled:cursor-not-allowed disabled:opacity-70">
+          {loading ? "Sending..." : "Get the Free Guide"}
+        </button>
+        {error && <p className="text-sm font-medium text-rose-400">{error}</p>}
+      </form>
+    );
   }
 
-  function advanceFromTripwire() {
-    window.localStorage.setItem("recoveryFunnelStage", "core");
-    setStage("core");
-  }
+  return (
+    <div id={id} className="rounded-[2rem] border border-white/10 bg-white p-6 text-slate-900 shadow-[0_30px_80px_rgba(0,0,0,0.35)] sm:p-8">
+      <div className="mb-6">
+        <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#0D9488]">Free guide</p>
+        <h2 className="mt-3 text-3xl font-semibold text-[#1B2A4A]">Get the 5 Peptides Most Studied in the Recovery Conversation</h2>
+        <p className="mt-3 text-base leading-7 text-slate-600">
+          Enter your name and email for instant access. No cost, no obligation — just the research, organized clearly.
+        </p>
+      </div>
 
+      <form className="space-y-4" onSubmit={handleSubmit}>
+        <div>
+          <label className="mb-2 block text-sm font-medium text-slate-700">First name</label>
+          <input required value={name} onChange={(e) => setName(e.target.value)} className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-base outline-none transition focus:border-[#0D9488] focus:ring-4 focus:ring-[#0D9488]/10" placeholder="Perry" />
+        </div>
+        <div>
+          <label className="mb-2 block text-sm font-medium text-slate-700">Email address</label>
+          <input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-base outline-none transition focus:border-[#0D9488] focus:ring-4 focus:ring-[#0D9488]/10" placeholder="you@example.com" />
+        </div>
+        <button type="submit" disabled={loading} className="w-full rounded-2xl bg-[#0D9488] px-4 py-4 text-base font-semibold text-white transition hover:bg-[#14B8A6] disabled:cursor-not-allowed disabled:opacity-70">
+          {loading ? "Submitting..." : "Get the 5-Peptide Recovery Guide"}
+        </button>
+        <p className="text-sm leading-6 text-slate-500">We&apos;ll also send occasional research updates. Unsubscribe anytime.</p>
+        {error && <p className="text-sm font-medium text-rose-600">{error}</p>}
+      </form>
+    </div>
+  );
+}
+
+export default function Home() {
   return (
     <div className="bg-[#0B1426] text-white">
       <header className="sticky top-0 z-50 border-b border-white/10 bg-[rgba(11,20,38,0.82)] backdrop-blur-xl">
@@ -225,510 +187,279 @@ export default function Home() {
             PeptideLaunch
           </a>
           <nav className="hidden items-center gap-6 text-sm text-slate-300 md:flex">
-            <a href="#problem">Problem</a>
+            <a href="#problem">The Problem</a>
             <a href="#mechanism">How It Works</a>
             <a href="#proof">Research</a>
-            <a href="#stack">What You Get</a>
+            <a href="#guide">What&apos;s Inside</a>
             <a href="#faq">FAQ</a>
           </nav>
-          <a href={stage === "landing" ? "#optin" : "#offer"} className="rounded-full bg-[#0D9488] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#14B8A6]">
-            {ctaLabel}
+          <a href="#optin" className="rounded-full bg-[#0D9488] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#14B8A6]">
+            Get the Free Guide
           </a>
         </div>
       </header>
 
-      {/* Landing page */}
-      {stage === "landing" && (
-        <main id="top">
-
-          {/* Hero */}
-          <section className="relative isolate overflow-hidden border-b border-white/10">
-            <img src={photos.hero} alt="Athlete stretching during active recovery session" className="absolute inset-0 h-full w-full object-cover" />
-            <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(11,20,38,0.94)_0%,rgba(11,20,38,0.78)_45%,rgba(11,20,38,0.58)_100%)]" />
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(13,148,136,0.35),transparent_35%)]" />
-            <div className="relative mx-auto grid max-w-7xl gap-12 px-4 py-16 sm:px-6 lg:grid-cols-[1.15fr_0.85fr] lg:px-8 lg:py-24">
-              <div className="space-y-8">
-                <div className="inline-flex rounded-full border border-[#0D9488]/40 bg-[#0D9488]/15 px-4 py-2 text-sm text-[#99F6E4]">
-                  Research-first education for the pain-management loop
-                </div>
-
-                {/* Hero headlines */}
-                <div className="space-y-5">
-                  <p className="text-xl font-medium text-[#67E8F9] sm:text-2xl">Still stuck in the pain-management loop?</p>
-                  <h1 className="max-w-4xl text-3xl font-semibold leading-tight sm:text-4xl lg:text-5xl">
-                    Most people keep changing treatments without ever understanding which recovery pathway they&apos;re actually trying to support.
-                  </h1>
-                  <p className="max-w-2xl text-lg leading-8 text-slate-200 sm:text-xl">
-                    This free guide shows the 5 peptides most studied for recovery support — and how to think about them clearly.
-                  </p>
-                </div>
-
-                {/* VSL Video */}
-                <div className="relative w-full overflow-hidden rounded-2xl border border-white/10 shadow-[0_24px_60px_rgba(0,0,0,0.4)]" style={{ paddingBottom: "56.25%" }}>
-                  <iframe
-                    src="https://drive.google.com/file/d/16VqMfFPjSFW9_iHf57mjhs2tPKVrm12i/preview"
-                    className="absolute inset-0 h-full w-full"
-                    allow="autoplay; encrypted-media"
-                    allowFullScreen
-                    title="Pain Recovery VSL"
-                  />
-                </div>
-
-                {/* Subheadline */}
-                <p className="max-w-2xl text-base leading-7 text-slate-300">
-                  Get the free guide that breaks down the 5 peptides most studied in the recovery conversation — and see why people start with a simple 10-day framework before committing to a full 30/60/90-day system.
-                </p>
-
-                <div className="flex flex-col gap-4 sm:flex-row">
-                  <a href="#optin" className="rounded-full bg-[#0D9488] px-6 py-4 text-base font-semibold text-white transition hover:bg-[#14B8A6]">
-                    Get the 5-Peptide Recovery Guide
-                  </a>
-                  <a href="#stack" className="rounded-full border border-white/15 px-6 py-4 text-base font-semibold text-white transition hover:bg-white/5">
-                    See What&apos;s Inside
-                  </a>
-                </div>
-
-                {/* Stat tiles — NO pricing */}
-                <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-                  {[
-                    { value: "50+", label: "peer-reviewed studies referenced" },
-                    { value: "3-Step", label: "recovery education framework" },
-                    { value: "7–14", label: "day initial research window" },
-                    { value: "Instant", label: "access to the free guide" },
-                  ].map((stat) => (
-                    <div key={stat.label} className="rounded-3xl border border-white/10 bg-white/10 p-5 backdrop-blur-sm">
-                      <div className="text-3xl font-semibold text-[#67E8F9]">{stat.value}</div>
-                      <div className="mt-2 text-sm leading-6 text-slate-200">{stat.label}</div>
-                    </div>
-                  ))}
-                </div>
-
-                <Disclaimer />
+      <main id="top">
+        {/* Hero */}
+        <section className="relative isolate overflow-hidden border-b border-white/10">
+          <img src={photos.hero} alt="Athlete stretching during active recovery session" className="absolute inset-0 h-full w-full object-cover" />
+          <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(11,20,38,0.94)_0%,rgba(11,20,38,0.78)_45%,rgba(11,20,38,0.58)_100%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(13,148,136,0.35),transparent_35%)]" />
+          <div className="relative mx-auto grid max-w-7xl gap-12 px-4 py-16 sm:px-6 lg:grid-cols-[1.15fr_0.85fr] lg:px-8 lg:py-24">
+            <div className="space-y-8">
+              <div className="inline-flex rounded-full border border-[#0D9488]/40 bg-[#0D9488]/15 px-4 py-2 text-sm text-[#99F6E4]">
+                Research-first education for the pain-management loop
               </div>
 
-              {/* Opt-in Form */}
-              <div id="optin" className="rounded-[2rem] border border-white/10 bg-white p-6 text-slate-900 shadow-[0_30px_80px_rgba(0,0,0,0.35)] sm:p-8">
-                <div className="mb-6">
-                  <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#0D9488]">Free guide</p>
-                  <h2 className="mt-3 text-3xl font-semibold text-[#1B2A4A]">Get the 5 Peptides Most Studied in the Recovery Conversation</h2>
-                  <p className="mt-3 text-base leading-7 text-slate-600">
-                    Enter your name and email for instant access. Then see the one-time 10-day Quick Start that turns the overview into a clean first step.
-                  </p>
-                </div>
-
-                <form className="space-y-4" onSubmit={handleSubmit}>
-                  <div>
-                    <label className="mb-2 block text-sm font-medium text-slate-700">First name</label>
-                    <input required value={name} onChange={(e) => setName(e.target.value)} className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-base outline-none transition focus:border-[#0D9488] focus:ring-4 focus:ring-[#0D9488]/10" placeholder="Perry" />
-                  </div>
-                  <div>
-                    <label className="mb-2 block text-sm font-medium text-slate-700">Email address</label>
-                    <input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-base outline-none transition focus:border-[#0D9488] focus:ring-4 focus:ring-[#0D9488]/10" placeholder="you@example.com" />
-                  </div>
-                  <button type="submit" disabled={loading} className="w-full rounded-2xl bg-[#0D9488] px-4 py-4 text-base font-semibold text-white transition hover:bg-[#14B8A6] disabled:cursor-not-allowed disabled:opacity-70">
-                    {loading ? "Submitting..." : "Get the 5-Peptide Recovery Guide"}
-                  </button>
-                  <p className="text-sm leading-6 text-slate-500">We&apos;ll also send occasional peptide research updates and follow-up emails. Unsubscribe anytime.</p>
-                  {submitted && <p className="text-sm font-medium text-emerald-600">Success — redirecting you to the quick-start offer below.</p>}
-                  {error && <p className="text-sm font-medium text-rose-600">{error}</p>}
-                </form>
-              </div>
-            </div>
-          </section>
-
-          {/* Problem */}
-          <section id="problem" className="border-b border-white/10 bg-[#1B2A4A] px-4 py-16 sm:px-6 lg:px-8">
-            <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
-              <PhotoCard src={photos.pain} alt="Person holding painful shoulder during training" className="h-[320px] lg:h-[520px]" />
-              <div>
-                <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#99F6E4]">The real problem</p>
-                <h2 className="mt-4 text-3xl font-semibold sm:text-4xl">The frustration isn&apos;t just pain. It&apos;s trying to make sense of too many fragmented answers.</h2>
-                <p className="mt-4 max-w-2xl text-lg leading-8 text-slate-300">
-                  Most people bounce between symptom suppression, forum advice, and scattered compound talk without ever getting a simple research-first framework they can actually trust. Sound familiar?
-                </p>
-                <div className="mt-8 grid gap-4">
-                  {painPoints.map((point) => (
-                    <div key={point} className="rounded-[1.5rem] border border-white/10 bg-white/5 p-5 text-sm leading-7 text-slate-200">
-                      <span className="mr-2 text-[#67E8F9]">→</span> {point}
-                    </div>
-                  ))}
-                </div>
-                <p className="mt-6 text-base leading-7 text-slate-300">
-                  If you&apos;re nodding along, you don&apos;t need another random product recommendation. You need a framework that organizes the research so you can think clearly.
-                </p>
-                <div className="mt-8 flex flex-wrap gap-4">
-                  <a href="#optin" className="rounded-full bg-[#0D9488] px-6 py-4 text-base font-semibold text-white transition hover:bg-[#14B8A6]">
-                    Get the 5-Peptide Recovery Guide
-                  </a>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          {/* Mechanism */}
-          <section id="mechanism" className="border-b border-white/10 bg-[linear-gradient(180deg,#10203A_0%,#0B1426_100%)] px-4 py-16 sm:px-6 lg:px-8">
-            <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.92fr_1.08fr]">
-              <div>
-                <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#99F6E4]">Why this approach is different</p>
-                <h2 className="mt-4 text-3xl font-semibold sm:text-4xl">This isn&apos;t another hype page. It&apos;s a cleaner way to understand mechanism, evidence, and next steps.</h2>
-                <div className="mt-6 space-y-5 text-base leading-8 text-slate-300">
-                  <p>
-                    Most recovery content online either oversimplifies (just take BPC-157!) or overwhelms with contradictory claims. Neither helps you make a clear decision.
-                  </p>
-                  <p>
-                    This system organizes the recovery conversation into a simple progression: <strong className="text-white">overview first</strong> (free guide), <strong className="text-white">implementation bridge second</strong> (10-day plan), <strong className="text-white">full system third</strong> (30/60/90-day framework).
-                  </p>
-                  <p>
-                    Each layer builds on the last. The free guide explains what each peptide is most commonly studied for. The Quick Start maps the first 10 days. The full system turns that into a comprehensive educational framework you can reference for months.
-                  </p>
-                  <p>
-                    That progression means you never feel overwhelmed — you only go deeper when you&apos;re ready.
-                  </p>
-                </div>
-                <div className="mt-8">
-                  <Disclaimer />
-                </div>
-              </div>
-              <div className="space-y-4">
-                <PhotoCard src={photos.research} alt="Researcher studying samples in a modern laboratory" className="h-[280px]" />
-                <div className="grid gap-4">
-                  {[
-                    { step: "Step 1", title: "Understand the landscape", desc: "The free guide gives you the big picture: 5 peptides, what they're studied for, and how to think about them." },
-                    { step: "Step 2", title: "Organize the first 10 days", desc: "The Quick Start turns the overview into a daily tracking plan so you can build structured knowledge." },
-                    { step: "Step 3", title: "Go deep with the full system", desc: "The 30/60/90-day framework gives you everything: profiles, worksheets, timing guides, and the full research appendix." },
-                  ].map((item) => (
-                    <div key={item.step} className="rounded-[1.5rem] border border-white/10 bg-white/5 p-5">
-                      <div className="text-sm font-semibold text-[#67E8F9]">{item.step}</div>
-                      <h3 className="mt-1 text-lg font-semibold text-white">{item.title}</h3>
-                      <p className="mt-2 text-sm leading-7 text-slate-300">{item.desc}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </section>
-
-          {/* Proof */}
-          <section id="proof" className="border-b border-white/10 bg-[#1B2A4A] px-4 py-16 sm:px-6 lg:px-8">
-            <div className="mx-auto max-w-7xl">
-              <div className="text-center">
-                <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#99F6E4]">The research behind it</p>
-                <h2 className="mt-4 text-3xl font-semibold sm:text-4xl">Built on real science, not internet hype</h2>
-                <p className="mx-auto mt-4 max-w-3xl text-lg leading-8 text-slate-300">
-                  Every claim in this system traces back to published research. Here&apos;s the scope of what you&apos;re getting access to.
+              <div className="space-y-5">
+                <p className="text-xl font-medium text-[#67E8F9] sm:text-2xl">Still stuck in the pain-management loop?</p>
+                <h1 className="max-w-4xl text-3xl font-semibold leading-tight sm:text-4xl lg:text-5xl">
+                  Most people keep changing treatments without ever understanding which recovery pathway they&apos;re actually trying to support.
+                </h1>
+                <p className="max-w-2xl text-lg leading-8 text-slate-200 sm:text-xl">
+                  This free guide shows the 5 peptides most studied for recovery support — and how to think about them clearly.
                 </p>
               </div>
 
-              {/* Proof stats */}
-              <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-                {proofStats.map((stat) => (
-                  <div key={stat.label} className="rounded-[1.75rem] border border-white/10 bg-white/5 p-6 text-center backdrop-blur-sm">
-                    <div className="text-4xl font-semibold text-[#67E8F9]">{stat.value}</div>
+              {/* VSL Video */}
+              <div className="relative w-full overflow-hidden rounded-2xl border border-white/10 shadow-[0_24px_60px_rgba(0,0,0,0.4)]" style={{ paddingBottom: "56.25%" }}>
+                <iframe
+                  src="https://drive.google.com/file/d/16VqMfFPjSFW9_iHf57mjhs2tPKVrm12i/preview"
+                  className="absolute inset-0 h-full w-full"
+                  allow="autoplay; encrypted-media"
+                  allowFullScreen
+                  title="Pain Recovery VSL"
+                />
+              </div>
+
+              <p className="max-w-2xl text-base leading-7 text-slate-300">
+                Get the free guide that breaks down the 5 peptides most studied in the recovery conversation — with the research organized clearly so you can finally stop guessing.
+              </p>
+
+              <div className="flex flex-col gap-4 sm:flex-row">
+                <a href="#optin" className="rounded-full bg-[#0D9488] px-6 py-4 text-base font-semibold text-white transition hover:bg-[#14B8A6]">
+                  Get the 5-Peptide Recovery Guide
+                </a>
+                <a href="#guide" className="rounded-full border border-white/15 px-6 py-4 text-base font-semibold text-white transition hover:bg-white/5">
+                  See What&apos;s Inside
+                </a>
+              </div>
+
+              <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+                {[
+                  { value: "50+", label: "peer-reviewed studies referenced" },
+                  { value: "5", label: "key peptides covered in depth" },
+                  { value: "7–14", label: "day initial research window" },
+                  { value: "Instant", label: "access — check your inbox" },
+                ].map((stat) => (
+                  <div key={stat.label} className="rounded-3xl border border-white/10 bg-white/10 p-5 backdrop-blur-sm">
+                    <div className="text-3xl font-semibold text-[#67E8F9]">{stat.value}</div>
                     <div className="mt-2 text-sm leading-6 text-slate-200">{stat.label}</div>
                   </div>
                 ))}
               </div>
 
-              {/* Key citations */}
-              <div className="mt-10 grid gap-4 lg:grid-cols-2">
-                {citations.map((citation) => (
-                  <article key={citation.title} className="rounded-[1.75rem] border border-white/10 bg-white/5 p-5">
-                    <div className="text-sm font-semibold uppercase tracking-[0.15em] text-[#67E8F9]">{citation.journal}</div>
-                    <h3 className="mt-2 text-xl font-semibold text-white">{citation.title}</h3>
-                    <p className="mt-3 text-sm leading-7 text-slate-300">{citation.takeaway}</p>
-                  </article>
+              <Disclaimer />
+            </div>
+
+            <OptinForm id="optin" />
+          </div>
+        </section>
+
+        {/* Pain Points */}
+        <section id="problem" className="border-b border-white/10 bg-[#1B2A4A] px-4 py-16 sm:px-6 lg:px-8">
+          <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
+            <div className="overflow-hidden rounded-[2rem] border border-white/10 bg-white/5 shadow-[0_24px_60px_rgba(15,23,42,0.18)] h-[320px] lg:h-[520px]">
+              <img src={photos.pain} alt="Person holding painful shoulder during training" loading="lazy" className="h-full w-full object-cover" />
+            </div>
+            <div>
+              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#99F6E4]">Sound familiar?</p>
+              <h2 className="mt-4 text-3xl font-semibold sm:text-4xl">The frustration isn&apos;t just pain. It&apos;s trying to make sense of too many fragmented answers.</h2>
+              <p className="mt-4 max-w-2xl text-lg leading-8 text-slate-300">
+                Most people bounce between symptom suppression, conflicting provider opinions, and scattered compound research without ever getting a simple framework they can actually trust.
+              </p>
+              <div className="mt-8 grid gap-4">
+                {painPoints.map((point) => (
+                  <div key={point} className="rounded-[1.5rem] border border-white/10 bg-white/5 p-5 text-sm leading-7 text-slate-200">
+                    <span className="mr-2 text-[#67E8F9]">→</span> {point}
+                  </div>
                 ))}
               </div>
-
-              <div className="mt-10 text-center">
+              <p className="mt-6 text-base leading-7 text-slate-300">
+                If you&apos;re nodding along, you don&apos;t need another random product recommendation. You need a clear framework that organizes the research so you can think — and talk to your provider — with confidence.
+              </p>
+              <div className="mt-8">
                 <a href="#optin" className="inline-flex rounded-full bg-[#0D9488] px-6 py-4 text-base font-semibold text-white transition hover:bg-[#14B8A6]">
                   Get the 5-Peptide Recovery Guide
                 </a>
               </div>
             </div>
-          </section>
-
-          {/* Offer */}
-          <section id="stack" className="border-b border-white/10 bg-[#0B1426] px-4 py-16 sm:px-6 lg:px-8">
-            <div className="mx-auto max-w-7xl">
-              <div className="text-center">
-                <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#99F6E4]">What you get</p>
-                <h2 className="mt-4 text-3xl font-semibold sm:text-4xl">Inside the Full 30/60/90-Day Recovery System</h2>
-                <p className="mx-auto mt-4 max-w-3xl text-lg leading-8 text-slate-300">
-                  Here&apos;s everything included in the complete system.
-                </p>
-              </div>
-
-              <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                {coreValueStack.map((item) => (
-                  <div key={item.name} className="rounded-[1.5rem] border border-white/10 bg-white/5 p-6">
-                    <div className="flex items-start justify-between gap-4">
-                      <h3 className="text-lg font-semibold text-white">{item.name}</h3>
-                      <span className="shrink-0 rounded-full border border-[#67E8F9]/30 bg-[#67E8F9]/10 px-3 py-1 text-sm font-semibold text-[#67E8F9]">{item.value}</span>
-                    </div>
-                    <p className="mt-3 text-sm leading-7 text-slate-300">{item.body}</p>
-                  </div>
-                ))}
-              </div>
-
-              {/* Pricing summary */}
-              <div className="mt-10 rounded-[1.75rem] border border-[#0D9488]/30 bg-[#0D9488]/10 p-8 text-center">
-                <div className="text-sm font-semibold uppercase tracking-[0.2em] text-[#99F6E4]">If purchased separately</div>
-                <div className="mt-2 text-5xl font-semibold text-white">$499+</div>
-                <p className="mt-3 text-lg leading-8 text-slate-200">Your price today: <span className="font-semibold text-white">$67</span></p>
-                <p className="mt-1 text-sm text-slate-300">This pricing is introductory and will increase.</p>
-              </div>
-            </div>
-          </section>
-
-          {/* Pricing */}
-          <section id="offer" className="border-b border-white/10 bg-[#1B2A4A] px-4 py-16 sm:px-6 lg:px-8">
-            <div className="mx-auto max-w-7xl">
-              <div className="text-center">
-                <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#99F6E4]">Choose your path</p>
-                <h2 className="mt-4 text-3xl font-semibold sm:text-4xl">Start free. Then choose the layer that matches your pace.</h2>
-              </div>
-              <div className="mt-10 grid gap-5 lg:grid-cols-3">
-                {/* Free tier */}
-                <div className="rounded-[2rem] border border-white/10 bg-white/5 p-8 backdrop-blur-sm">
-                  <div className="text-sm font-semibold uppercase tracking-[0.2em] text-[#67E8F9]">Free</div>
-                  <h3 className="mt-3 text-2xl font-semibold">5-Peptide Recovery Guide</h3>
-                  <p className="mt-3 text-sm leading-7 text-slate-300">The research-first overview that helps you understand what each peptide is most studied for and why the recovery conversation matters.</p>
-                  <div className="mt-6">
-                    <a href="#optin" className="block rounded-full border border-white/15 px-6 py-4 text-center text-base font-semibold text-white transition hover:bg-white/5">
-                      Get the 5-Peptide Recovery Guide
-                    </a>
-                  </div>
-                </div>
-
-                {/* Quick Start — highlighted */}
-                <div className="rounded-[2rem] border border-[#0D9488]/30 bg-[#0D9488]/10 p-8 backdrop-blur-sm">
-                  <div className="text-sm font-semibold uppercase tracking-[0.2em] text-[#99F6E4]">Quick Start</div>
-                  <h3 className="mt-3 text-2xl font-semibold">10-Day Recovery Plan</h3>
-                  <p className="mt-3 text-sm leading-7 text-slate-200">The first 10 days mapped out — what to track, what to watch for, and how to know whether you should continue into the full system.</p>
-                  <div className="mt-4 space-y-2">
-                    {tripwireValueStack.map((item) => (
-                      <div key={item.name} className="flex items-center justify-between text-sm text-slate-200">
-                        <span>{item.name}</span>
-                        <span className="text-[#67E8F9]">{item.value}</span>
-                      </div>
-                    ))}
-                    <div className="border-t border-white/10 pt-2">
-                      <div className="flex items-center justify-between text-sm font-semibold text-white">
-                        <span>Your price today</span>
-                        <span className="text-[#99F6E4]">$17</span>
-                      </div>
-                    </div>
-                  </div>
-                  <p className="mt-3 text-xs text-slate-300">30-day money-back guarantee</p>
-                </div>
-
-                {/* Full System */}
-                <div className="rounded-[2rem] border border-white/10 bg-white p-8 text-slate-900">
-                  <div className="text-sm font-semibold uppercase tracking-[0.2em] text-[#0D9488]">Full System</div>
-                  <h3 className="mt-3 text-2xl font-semibold text-[#1B2A4A]">30/60/90-Day Recovery System</h3>
-                  <p className="mt-3 text-sm leading-7 text-slate-600">The complete educational framework with the 6-pillar model, profile library, planning calendar, tracking worksheets, and full research appendix.</p>
-                  <div className="mt-4 rounded-xl bg-slate-50 p-4">
-                    <div className="text-sm text-slate-500">If purchased separately: $499+</div>
-                    <div className="mt-1 text-2xl font-semibold text-[#0D9488]">Your price: $67</div>
-                    <p className="mt-1 text-xs text-slate-400">This pricing is introductory and will increase.</p>
-                  </div>
-                  <p className="mt-3 text-xs text-slate-500">60-Day Research Guarantee — if it doesn&apos;t help you organize a clearer recovery plan, email us for a full refund.</p>
-                </div>
-              </div>
-
-              {/* Guarantee callout */}
-              <div className="mt-10 rounded-[1.75rem] border border-white/10 bg-white/5 p-8 text-center">
-                <h3 className="text-2xl font-semibold">60-Day Research Guarantee</h3>
-                <p className="mx-auto mt-3 max-w-2xl text-base leading-7 text-slate-300">
-                  Review the full system for 60 days. If the educational framework doesn&apos;t help you organize a clearer recovery plan, email us for a full refund. No hoops, no hassle.
-                </p>
-              </div>
-            </div>
-          </section>
-
-          {/* FAQ */}
-          <section id="faq" className="border-b border-white/10 bg-[#0B1426] px-4 py-16 sm:px-6 lg:px-8">
-            <div className="mx-auto max-w-7xl">
-              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#99F6E4]">FAQ</p>
-              <h2 className="mt-4 text-3xl font-semibold sm:text-4xl">Your Questions, Answered</h2>
-              <div className="mt-10 grid gap-4 lg:grid-cols-2">
-                {faqs.map((faq) => (
-                  <details key={faq.question} className="group rounded-[1.75rem] border border-white/10 bg-white/5 p-6 backdrop-blur-sm">
-                    <summary className="cursor-pointer list-none text-lg font-semibold">{faq.question}</summary>
-                    <p className="mt-4 text-sm leading-7 text-slate-300">{faq.answer}</p>
-                  </details>
-                ))}
-              </div>
-            </div>
-          </section>
-
-          {/* Final CTA */}
-          <section className="relative isolate overflow-hidden border-b border-white/10 px-4 py-16 sm:px-6 lg:px-8">
-            <img src={photos.final} alt="Hiker reaching a mountain summit at golden hour" loading="lazy" className="absolute inset-0 h-full w-full object-cover" />
-            <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(11,20,38,0.78),rgba(11,20,38,0.9))]" />
-            <div className="relative mx-auto max-w-5xl text-center">
-              <h2 className="text-3xl font-semibold sm:text-5xl">Start with clarity. Go deeper only when you&apos;re ready.</h2>
-              <p className="mx-auto mt-5 max-w-3xl text-lg leading-8 text-slate-200">
-                Free guide first. 10-day plan second. Full 30/60/90-day system third. That&apos;s the entire path — and you choose how far to go.
-              </p>
-              <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
-                <a href="#optin" className="rounded-full bg-[#0D9488] px-6 py-4 text-base font-semibold text-white transition hover:bg-[#14B8A6]">Get the 5-Peptide Recovery Guide</a>
-                <a href="#offer" className="rounded-full border border-white/15 px-6 py-4 text-base font-semibold text-white transition hover:bg-white/5">See All Three Options</a>
-              </div>
-              <div className="mt-8 flex flex-wrap items-center justify-center gap-3 text-sm text-slate-200">
-                <span className="rounded-full border border-white/10 px-4 py-2">50+ peer-reviewed studies</span>
-                <span className="rounded-full border border-white/10 px-4 py-2">60-Day Research Guarantee</span>
-                <span className="rounded-full border border-white/10 px-4 py-2">Instant digital access</span>
-              </div>
-            </div>
-          </section>
-        </main>
-      )}
-
-      {/* Post-signup states */}
-      {stage !== "landing" && (
-        <main className="min-h-[calc(100vh-81px)] bg-[linear-gradient(180deg,#0B1426_0%,#10203A_100%)] px-4 py-14 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-6xl space-y-8">
-
-            {/* Thank-you header */}
-            <section className="rounded-[2rem] border border-white/10 bg-white p-8 text-slate-900 shadow-[0_30px_80px_rgba(0,0,0,0.35)] sm:p-10">
-              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#0D9488]">Your guide is on the way</p>
-              <h1 className="mt-4 text-3xl font-semibold text-[#1B2A4A] sm:text-4xl">
-                {name ? `${name}, your free recovery guide is on the way.` : "Your free recovery guide is on the way."}
-              </h1>
-              <p className="mt-4 max-w-3xl text-lg leading-8 text-slate-600">
-                Watch for it at <strong>{email || "your inbox"}</strong>. Before you leave, there&apos;s a one-time offer below.
-              </p>
-            </section>
-
-            {/* TRIPWIRE STATE */}
-            {stage === "tripwire" && (
-              <section className="grid gap-6 lg:grid-cols-[1fr_0.8fr]">
-                <div className="rounded-[2rem] border border-[#0D9488]/30 bg-[#0D9488]/10 p-8 text-white">
-                  <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#99F6E4]">One-time offer</p>
-                  <h2 className="mt-4 text-3xl font-semibold sm:text-4xl">Before You Leave — Turn the Free Guide Into a 10-Day Plan</h2>
-                  <p className="mt-4 text-lg leading-8 text-slate-200">
-                    The free guide gives you the research landscape. This turns it into the first 10 days mapped out — what to track, what to watch for, and how to know whether you should continue into the full system.
-                  </p>
-
-                  {/* Included items */}
-                  <div className="mt-8 rounded-[1.5rem] border border-white/10 bg-white/5 p-6">
-                    <p className="text-sm font-semibold uppercase tracking-[0.15em] text-[#67E8F9]">What&apos;s included</p>
-                    <div className="mt-4 space-y-3">
-                      {tripwireValueStack.map((item) => (
-                        <div key={item.name} className="flex items-center justify-between text-sm text-slate-200">
-                          <span>{item.name}</span>
-                          <span className="font-semibold text-[#67E8F9]">{item.value} value</span>
-                        </div>
-                      ))}
-                      <div className="border-t border-white/10 pt-3">
-                        <div className="flex items-center justify-between">
-                          <span className="text-base font-semibold text-white">Your price today</span>
-                          <span className="text-2xl font-semibold text-[#99F6E4]">$17</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <p className="mt-4 text-sm text-slate-300">30-day money-back guarantee. If the first 10 days help you see a clear signal, the next step is the full 30/60/90-day system that shows you how to build on that momentum.</p>
-
-                  <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:flex-wrap">
-                    <a href="https://checkout.example.com/pain-recovery-quick-start" className="rounded-full bg-white px-6 py-4 text-center text-base font-semibold text-[#1B2A4A] transition hover:bg-slate-100">
-                      Yes — Give Me the 10-Day Recovery Plan
-                    </a>
-                    <button onClick={advanceFromTripwire} className="rounded-full border border-white/15 px-6 py-4 text-base font-semibold text-white transition hover:bg-white/5">
-                      I bought it — show me the full system
-                    </button>
-                    <button onClick={skipTripwire} className="rounded-full border border-white/15 px-6 py-4 text-base font-semibold text-white transition hover:bg-white/5">
-                      Skip This — Show Me the Full Recovery System
-                    </button>
-                  </div>
-                </div>
-                <aside className="space-y-6">
-                  <PhotoCard src={photos.tripwire} alt="Athlete in post-workout recovery stretch" className="h-[250px]" />
-                  <div className="rounded-[2rem] border border-white/10 bg-white/5 p-8 text-white">
-                    <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#67E8F9]">The progression</p>
-                    <div className="mt-5 space-y-4 text-sm leading-7 text-slate-300">
-                      <p><strong className="text-white">Free guide</strong> = understand the 5 peptides and the big picture.</p>
-                      <p><strong className="text-white">$17 Quick Start</strong> = the first 10 days organized and trackable.</p>
-                      <p><strong className="text-white">$67 Full System</strong> = the complete 30/60/90-day educational framework.</p>
-                    </div>
-                  </div>
-                </aside>
-              </section>
-            )}
-
-            {/* CORE STATE */}
-            {stage === "core" && (
-              <section className="grid gap-6 lg:grid-cols-[1fr_0.8fr]">
-                <div className="rounded-[2rem] border border-white/10 bg-white/5 p-8 text-white">
-                  <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#99F6E4]">Full system</p>
-                  <h2 className="mt-4 text-3xl font-semibold sm:text-4xl">Unlock the Full 30/60/90-Day Recovery System</h2>
-                  <p className="mt-4 text-lg leading-8 text-slate-200">
-                    A research-first digital system that helps you move from random peptide guesses and symptom chasing to a structured 30/60/90-day recovery framework with timing, tracking, and protocol logic built in.
-                  </p>
-                  <p className="mt-3 text-base leading-7 text-slate-300">
-                    The Quick Start gives you the first 10 days. This is the complete operating system for the next 90.
-                  </p>
-
-                  {/* Included items */}
-                  <div className="mt-8 space-y-3">
-                    {coreValueStack.map((item) => (
-                      <div key={item.name} className="flex items-center justify-between rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm">
-                        <span className="text-slate-200">{item.name}</span>
-                        <span className="font-semibold text-[#67E8F9]">{item.value}</span>
-                      </div>
-                    ))}
-                  </div>
-
-                  <div className="mt-8 grid gap-4 sm:grid-cols-2">
-                    <div className="rounded-[1.5rem] border border-white/10 bg-white/5 p-5">
-                      <div className="text-sm font-semibold uppercase tracking-[0.2em] text-[#67E8F9]">If purchased separately</div>
-                      <div className="mt-2 text-3xl font-semibold">$499+</div>
-                    </div>
-                    <div className="rounded-[1.5rem] border border-[#0D9488]/30 bg-[#0D9488]/10 p-5">
-                      <div className="text-sm font-semibold uppercase tracking-[0.2em] text-[#99F6E4]">Your price</div>
-                      <div className="mt-2 text-3xl font-semibold">$67</div>
-                      <p className="mt-1 text-xs text-slate-300">This pricing is introductory and will increase.</p>
-                    </div>
-                  </div>
-
-                  <div className="mt-8 flex flex-col gap-4 sm:flex-row">
-                    <a href="https://checkout.example.com/peptide-pain-recovery-protocol" className="rounded-full bg-[#0D9488] px-6 py-4 text-center text-base font-semibold text-white transition hover:bg-[#14B8A6]">
-                      Unlock the Full 30/60/90-Day Recovery System
-                    </a>
-                    <a href="/#faq" className="rounded-full border border-white/15 px-6 py-4 text-center text-base font-semibold text-white transition hover:bg-white/5">
-                      Review FAQs
-                    </a>
-                  </div>
-                </div>
-                <aside className="space-y-6">
-                  <PhotoCard src={photos.core} alt="Healthy active person resting after exercise" className="h-[250px]" />
-                  <div className="rounded-[2rem] border border-white/10 bg-white p-8 text-slate-900">
-                    <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#0D9488]">60-Day Research Guarantee</p>
-                    <p className="mt-3 text-sm leading-7 text-slate-700">
-                      Review the full system for 60 days. If the educational framework doesn&apos;t help you organize a clearer recovery plan, email us for a full refund. No hoops, no hassle.
-                    </p>
-                  </div>
-                  <div className="rounded-[2rem] border border-white/10 bg-white p-8 text-slate-900">
-                    <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#0D9488]">What&apos;s included</p>
-                    <ul className="mt-5 space-y-3 text-sm leading-7 text-slate-700">
-                      <li>• 6-Pillar Recovery Framework</li>
-                      <li>• 30/60/90-Day Planning Calendar</li>
-                      <li>• Peptide Profile Library (BPC-157, TB-500, GHK-Cu, SS-31, KPV)</li>
-                      <li>• Stacking + Timing Research Guide</li>
-                      <li>• Symptom + Function Tracking Worksheets</li>
-                      <li>• Pattern Decoder + Troubleshooting Guide</li>
-                      <li>• Research Appendix + 50+ Citations</li>
-                    </ul>
-                  </div>
-                </aside>
-              </section>
-            )}
           </div>
-        </main>
-      )}
+        </section>
+
+        {/* Mechanism */}
+        <section id="mechanism" className="border-b border-white/10 bg-[linear-gradient(180deg,#10203A_0%,#0B1426_100%)] px-4 py-16 sm:px-6 lg:px-8">
+          <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.92fr_1.08fr]">
+            <div>
+              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#99F6E4]">Why this approach is different</p>
+              <h2 className="mt-4 text-3xl font-semibold sm:text-4xl">Education first. Decisions second. That&apos;s the only order that works.</h2>
+              <div className="mt-6 space-y-5 text-base leading-8 text-slate-300">
+                <p>
+                  Most recovery content online either oversimplifies (&ldquo;just take BPC-157!&rdquo;) or overwhelms with contradictory claims. Neither helps you make a clear decision.
+                </p>
+                <p>
+                  Peptide research is real and growing — but the quality of evidence varies widely. Some compounds have decades of published studies. Others are mostly anecdotal. The difference matters, and this guide helps you see it.
+                </p>
+                <p>
+                  Instead of telling you what to do, this guide organizes <em>what the research actually says</em> — the mechanisms, the study contexts, the strength of evidence — so you can evaluate it for yourself.
+                </p>
+                <p>
+                  That&apos;s the difference between making decisions from hype and making decisions from understanding.
+                </p>
+              </div>
+              <div className="mt-8">
+                <Disclaimer />
+              </div>
+            </div>
+            <div className="space-y-4">
+              <div className="overflow-hidden rounded-[2rem] border border-white/10 bg-white/5 shadow-[0_24px_60px_rgba(15,23,42,0.18)] h-[280px]">
+                <img src={photos.research} alt="Researcher studying samples in a modern laboratory" loading="lazy" className="h-full w-full object-cover" />
+              </div>
+              <div className="grid gap-4">
+                {[
+                  { icon: "📖", title: "Understand the landscape", desc: "Know what each peptide is studied for, what kind of evidence exists, and where the research is strongest." },
+                  { icon: "🔬", title: "See the mechanisms clearly", desc: "Learn how each compound relates to specific recovery pathways — tissue repair, remodeling, inflammation, and cellular energy." },
+                  { icon: "🧭", title: "Make informed next steps", desc: "Have a real conversation with your healthcare provider based on organized research — not forum fragments." },
+                ].map((item) => (
+                  <div key={item.title} className="rounded-[1.5rem] border border-white/10 bg-white/5 p-5">
+                    <div className="text-2xl">{item.icon}</div>
+                    <h3 className="mt-2 text-lg font-semibold text-white">{item.title}</h3>
+                    <p className="mt-2 text-sm leading-7 text-slate-300">{item.desc}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Social Proof / Research */}
+        <section id="proof" className="border-b border-white/10 bg-[#1B2A4A] px-4 py-16 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-7xl">
+            <div className="text-center">
+              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#99F6E4]">The research behind it</p>
+              <h2 className="mt-4 text-3xl font-semibold sm:text-4xl">Built on published science, not internet hype</h2>
+              <p className="mx-auto mt-4 max-w-3xl text-lg leading-8 text-slate-300">
+                Every claim in this guide traces back to published, peer-reviewed research. Here&apos;s a sample of what you&apos;ll find inside.
+              </p>
+            </div>
+
+            <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+              {[
+                { value: "50+", label: "peer-reviewed studies cited" },
+                { value: "5", label: "key compounds profiled" },
+                { value: "4", label: "recovery pathways mapped" },
+                { value: "11", label: "page research overview" },
+              ].map((stat) => (
+                <div key={stat.label} className="rounded-[1.75rem] border border-white/10 bg-white/5 p-6 text-center backdrop-blur-sm">
+                  <div className="text-4xl font-semibold text-[#67E8F9]">{stat.value}</div>
+                  <div className="mt-2 text-sm leading-6 text-slate-200">{stat.label}</div>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-10 grid gap-4 lg:grid-cols-2">
+              {citations.map((citation) => (
+                <article key={citation.title} className="rounded-[1.75rem] border border-white/10 bg-white/5 p-5">
+                  <div className="text-sm font-semibold uppercase tracking-[0.15em] text-[#67E8F9]">{citation.journal}</div>
+                  <h3 className="mt-2 text-xl font-semibold text-white">{citation.title}</h3>
+                  <p className="mt-3 text-sm leading-7 text-slate-300">{citation.takeaway}</p>
+                </article>
+              ))}
+            </div>
+
+            <div className="mt-10 text-center">
+              <a href="#optin" className="inline-flex rounded-full bg-[#0D9488] px-6 py-4 text-base font-semibold text-white transition hover:bg-[#14B8A6]">
+                Get the 5-Peptide Recovery Guide
+              </a>
+            </div>
+          </div>
+        </section>
+
+        {/* What You'll Learn */}
+        <section id="guide" className="border-b border-white/10 bg-[#0B1426] px-4 py-16 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-7xl">
+            <div className="text-center">
+              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#99F6E4]">Inside the free guide</p>
+              <h2 className="mt-4 text-3xl font-semibold sm:text-4xl">Here&apos;s what you&apos;ll learn</h2>
+              <p className="mx-auto mt-4 max-w-3xl text-lg leading-8 text-slate-300">
+                The guide covers each of the 5 most-studied peptides in the recovery conversation — what the research says, which pathways they target, and how to think about them clearly.
+              </p>
+            </div>
+
+            <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {guideContents.map((item) => (
+                <div key={item.title} className="rounded-[1.5rem] border border-white/10 bg-white/5 p-6">
+                  <h3 className="text-lg font-semibold text-white">{item.title}</h3>
+                  <p className="mt-3 text-sm leading-7 text-slate-300">{item.desc}</p>
+                </div>
+              ))}
+              <div className="rounded-[1.5rem] border border-[#0D9488]/30 bg-[#0D9488]/10 p-6">
+                <h3 className="text-lg font-semibold text-white">Plus: How to Think About All 5 Together</h3>
+                <p className="mt-3 text-sm leading-7 text-slate-200">
+                  The guide doesn&apos;t just cover each peptide in isolation. It shows how they relate to different recovery pathways — so you understand the landscape, not just individual compounds.
+                </p>
+              </div>
+            </div>
+
+            <div className="mt-10 text-center">
+              <a href="#optin" className="inline-flex rounded-full bg-[#0D9488] px-6 py-4 text-base font-semibold text-white transition hover:bg-[#14B8A6]">
+                Get the 5-Peptide Recovery Guide — Free
+              </a>
+            </div>
+          </div>
+        </section>
+
+        {/* Opt-in Form (standalone section) */}
+        <section className="border-b border-white/10 bg-[#1B2A4A] px-4 py-16 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-3xl">
+            <OptinForm id="optin-mid" />
+          </div>
+        </section>
+
+        {/* FAQ */}
+        <section id="faq" className="border-b border-white/10 bg-[#0B1426] px-4 py-16 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-7xl">
+            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#99F6E4]">FAQ</p>
+            <h2 className="mt-4 text-3xl font-semibold sm:text-4xl">Your Questions, Answered</h2>
+            <div className="mt-10 grid gap-4 lg:grid-cols-2">
+              {faqs.map((faq) => (
+                <details key={faq.question} className="group rounded-[1.75rem] border border-white/10 bg-white/5 p-6 backdrop-blur-sm">
+                  <summary className="cursor-pointer list-none text-lg font-semibold">{faq.question}</summary>
+                  <p className="mt-4 text-sm leading-7 text-slate-300">{faq.answer}</p>
+                </details>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Final CTA */}
+        <section className="relative isolate overflow-hidden border-b border-white/10 px-4 py-16 sm:px-6 lg:px-8">
+          <img src={photos.final} alt="Hiker reaching a mountain summit at golden hour" loading="lazy" className="absolute inset-0 h-full w-full object-cover" />
+          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(11,20,38,0.78),rgba(11,20,38,0.9))]" />
+          <div className="relative mx-auto max-w-3xl space-y-8 text-center">
+            <h2 className="text-3xl font-semibold sm:text-5xl">Stop guessing. Start understanding.</h2>
+            <p className="mx-auto max-w-2xl text-lg leading-8 text-slate-200">
+              The free guide gives you the organized research on the 5 peptides most discussed in the recovery conversation. No cost. No obligation. Just clarity.
+            </p>
+            <OptinForm id="optin-final" compact />
+            <div className="flex flex-wrap items-center justify-center gap-3 text-sm text-slate-200">
+              <span className="rounded-full border border-white/10 px-4 py-2">50+ peer-reviewed studies</span>
+              <span className="rounded-full border border-white/10 px-4 py-2">5 key compounds covered</span>
+              <span className="rounded-full border border-white/10 px-4 py-2">Instant access</span>
+            </div>
+          </div>
+        </section>
+      </main>
 
       <footer className="bg-[#0B1426] px-4 py-10 text-sm text-slate-400 sm:px-6 lg:px-8">
         <div className="mx-auto flex max-w-7xl flex-col gap-4 border-t border-white/10 pt-8 md:flex-row md:items-center md:justify-between">
