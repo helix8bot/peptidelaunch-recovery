@@ -61,7 +61,7 @@ const faqs = [
   {
     question: "Do I need injections or dosing guidance?",
     answer:
-      "No. This page and funnel stay educational and research-first. The focus is on understanding the literature, mechanisms, and framework clearly.",
+      "No. Everything here is educational and research-first. The focus is on understanding the literature, mechanisms, and framework clearly.",
   },
   {
     question: "What if it's not for me?",
@@ -237,11 +237,11 @@ export default function Home() {
         </div>
       </header>
 
-      {/* ===== LANDING STATE ===== */}
+      {/* Landing page */}
       {stage === "landing" && (
         <main id="top">
 
-          {/* SECTION 1: HERO — Triple Hook + VSL + Opt-in */}
+          {/* Hero */}
           <section className="relative isolate overflow-hidden border-b border-white/10">
             <img src={photos.hero} alt="Athlete stretching during active recovery session" className="absolute inset-0 h-full w-full object-cover" />
             <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(11,20,38,0.94)_0%,rgba(11,20,38,0.78)_45%,rgba(11,20,38,0.58)_100%)]" />
@@ -328,7 +328,7 @@ export default function Home() {
                   <button type="submit" disabled={loading} className="w-full rounded-2xl bg-[#0D9488] px-4 py-4 text-base font-semibold text-white transition hover:bg-[#14B8A6] disabled:cursor-not-allowed disabled:opacity-70">
                     {loading ? "Submitting..." : "Get the 5-Peptide Recovery Guide"}
                   </button>
-                  <p className="text-sm leading-6 text-slate-500">We&apos;ll also send occasional peptide education and funnel follow-up. Unsubscribe anytime.</p>
+                  <p className="text-sm leading-6 text-slate-500">We&apos;ll also send occasional peptide research updates and follow-up emails. Unsubscribe anytime.</p>
                   {submitted && <p className="text-sm font-medium text-emerald-600">Success — redirecting you to the quick-start offer below.</p>}
                   {error && <p className="text-sm font-medium text-rose-600">{error}</p>}
                 </form>
@@ -336,7 +336,7 @@ export default function Home() {
             </div>
           </section>
 
-          {/* SECTION 2: PROBLEM / FAILED SOLUTIONS */}
+          {/* Problem */}
           <section id="problem" className="border-b border-white/10 bg-[#1B2A4A] px-4 py-16 sm:px-6 lg:px-8">
             <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
               <PhotoCard src={photos.pain} alt="Person holding painful shoulder during training" className="h-[320px] lg:h-[520px]" />
@@ -365,7 +365,7 @@ export default function Home() {
             </div>
           </section>
 
-          {/* SECTION 3: MECHANISM / WHY THIS WORKS */}
+          {/* Mechanism */}
           <section id="mechanism" className="border-b border-white/10 bg-[linear-gradient(180deg,#10203A_0%,#0B1426_100%)] px-4 py-16 sm:px-6 lg:px-8">
             <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.92fr_1.08fr]">
               <div>
@@ -408,7 +408,7 @@ export default function Home() {
             </div>
           </section>
 
-          {/* SECTION 4: PROOF BLOCK */}
+          {/* Proof */}
           <section id="proof" className="border-b border-white/10 bg-[#1B2A4A] px-4 py-16 sm:px-6 lg:px-8">
             <div className="mx-auto max-w-7xl">
               <div className="text-center">
@@ -448,7 +448,7 @@ export default function Home() {
             </div>
           </section>
 
-          {/* SECTION 5: OFFER / VALUE STACK */}
+          {/* Offer */}
           <section id="stack" className="border-b border-white/10 bg-[#0B1426] px-4 py-16 sm:px-6 lg:px-8">
             <div className="mx-auto max-w-7xl">
               <div className="text-center">
@@ -473,7 +473,7 @@ export default function Home() {
 
               {/* Total value callout */}
               <div className="mt-10 rounded-[1.75rem] border border-[#0D9488]/30 bg-[#0D9488]/10 p-8 text-center">
-                <div className="text-sm font-semibold uppercase tracking-[0.2em] text-[#99F6E4]">Total stacked value</div>
+                <div className="text-sm font-semibold uppercase tracking-[0.2em] text-[#99F6E4]">Total value</div>
                 <div className="mt-2 text-5xl font-semibold text-white">$499+</div>
                 <p className="mt-3 text-lg leading-8 text-slate-200">Founder launch pricing: <span className="font-semibold text-white">$67</span></p>
                 <p className="mt-1 text-sm text-slate-300">This pricing is introductory and will increase.</p>
@@ -481,7 +481,7 @@ export default function Home() {
             </div>
           </section>
 
-          {/* SECTION 6: PRICING / GUARANTEE / URGENCY */}
+          {/* Pricing */}
           <section id="offer" className="border-b border-white/10 bg-[#1B2A4A] px-4 py-16 sm:px-6 lg:px-8">
             <div className="mx-auto max-w-7xl">
               <div className="text-center">
@@ -547,7 +547,7 @@ export default function Home() {
             </div>
           </section>
 
-          {/* SECTION 7: FAQ + FINAL CTA */}
+          {/* FAQ */}
           <section id="faq" className="border-b border-white/10 bg-[#0B1426] px-4 py-16 sm:px-6 lg:px-8">
             <div className="mx-auto max-w-7xl">
               <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#99F6E4]">FAQ</p>
@@ -586,7 +586,7 @@ export default function Home() {
         </main>
       )}
 
-      {/* ===== TRIPWIRE + CORE STATES ===== */}
+      {/* Post-signup states */}
       {stage !== "landing" && (
         <main className="min-h-[calc(100vh-81px)] bg-[linear-gradient(180deg,#0B1426_0%,#10203A_100%)] px-4 py-14 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-6xl space-y-8">
@@ -612,7 +612,7 @@ export default function Home() {
                     The free guide gives you the research landscape. This turns it into the first 10 days mapped out — what to track, what to watch for, and how to know whether you should continue into the full system.
                   </p>
 
-                  {/* Tripwire value stack */}
+                  {/* Included items */}
                   <div className="mt-8 rounded-[1.5rem] border border-white/10 bg-white/5 p-6">
                     <p className="text-sm font-semibold uppercase tracking-[0.15em] text-[#67E8F9]">What&apos;s included</p>
                     <div className="mt-4 space-y-3">
@@ -672,7 +672,7 @@ export default function Home() {
                     The Quick Start gives you the first 10 days. This is the complete operating system for the next 90.
                   </p>
 
-                  {/* Core value stack */}
+                  {/* Included items */}
                   <div className="mt-8 space-y-3">
                     {coreValueStack.map((item) => (
                       <div key={item.name} className="flex items-center justify-between rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm">
