@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "The Complete Recovery Research System | PeptideLaunch",
-  description: "The full 30/60/90-day peptide recovery education framework. 6 pillars, 50+ citations, planning calendars, tracking worksheets, and complete research appendix.",
+  description: "The complete 90-day peptide recovery transformation system. 6 pillars, 50+ citations, planning calendars, tracking worksheets, and complete research appendix.",
 };
 
 const valueStack = [
@@ -12,7 +12,7 @@ const valueStack = [
     desc: "Understand the key recovery pathways and how they fit together — the structural foundation everything else builds on.",
   },
   {
-    name: "30/60/90-Day Planning Calendar",
+    name: "90-Day Recovery Transformation Calendar",
     value: "$67",
     desc: "See how to organize the research over time with a phased approach instead of trying to absorb everything at once.",
   },
@@ -100,7 +100,7 @@ export default function UpgradePage() {
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#99F6E4]">The complete system</p>
             <h1 className="mt-4 text-4xl font-semibold sm:text-5xl">The Complete Recovery Research System</h1>
             <p className="mx-auto mt-6 max-w-3xl text-xl leading-8 text-slate-200">
-              The full 30/60/90-day framework with every tool, every reference, and every tracking system in one place.
+              The complete 90-day framework with every tool, every reference, and every tracking system in one place.
             </p>
           </div>
         </section>
@@ -126,7 +126,7 @@ export default function UpgradePage() {
                 ))}
               </div>
               <p>
-                That&apos;s what this system is for. Not another overview — the <strong className="text-white">complete educational framework</strong> that organizes everything into a structured 90-day reference you can use for months.
+                That&apos;s what this system is for. Not another overview — the <strong className="text-white">complete educational framework</strong> that organizes everything into a structured reference you can use for months.
               </p>
             </div>
           </div>
@@ -142,7 +142,7 @@ export default function UpgradePage() {
                 {
                   icon: "📊",
                   title: "Phased, not overwhelming",
-                  desc: "The 30/60/90-day calendar breaks the research into manageable phases. You go deep only when you're ready.",
+                  desc: "The 90-day calendar breaks the research into manageable phases. You go deep only when you're ready.",
                 },
                 {
                   icon: "🔍",
@@ -200,7 +200,7 @@ export default function UpgradePage() {
                 href="#checkout-67"
                 className="mt-8 inline-block rounded-full bg-white px-10 py-4 text-lg font-semibold text-[#1B2A4A] transition hover:bg-slate-100"
               >
-                Unlock the Full 30/60/90-Day Recovery System
+                Unlock the 90-Day Recovery Transformation System
               </a>
             </div>
 
@@ -253,7 +253,7 @@ export default function UpgradePage() {
               href="#checkout-67"
               className="mt-8 inline-block rounded-full bg-[#0D9488] px-10 py-4 text-lg font-semibold text-white transition hover:bg-[#14B8A6]"
             >
-              Unlock the Full 30/60/90-Day Recovery System — $67
+              Unlock the 90-Day Recovery Transformation System — $67
             </a>
             <div className="mt-4 flex flex-wrap items-center justify-center gap-3 text-sm text-slate-400">
               <span>60-Day Research Guarantee</span>
